@@ -5,9 +5,6 @@ using UnityEngine;
 public class PieceGFXGenerator : MonoBehaviour
 {
     [SerializeField]
-    private GameObject sectionPrefab;
-
-    [SerializeField]
     private GameObject pinPrefab;
 
     [SerializeField]
@@ -23,12 +20,13 @@ public class PieceGFXGenerator : MonoBehaviour
 
 
 
-    public void GeneratePieceGFX(Piece piece)
+    public void GeneratePieceGFX(Piece piece, Color color)
     {
         // Generate the pin at the center of a piece
         GameObject pin = Instantiate(pinPrefab);
         pin.transform.parent = piece.transform;
         pin.transform.localPosition = Vector3.zero;
+        pin.GetComponent<SpriteRenderer>().color = color;
 
 
         // Generate the sections that make up the piece
@@ -124,6 +122,7 @@ public class PieceGFXGenerator : MonoBehaviour
                     section.transform.parent = piece.transform;
                     section.transform.localPosition = piece.GetShapeLowerBounds() + new Vector2(x, y) - Vector2.one * 0.5f;
                     section.transform.localRotation = Quaternion.Euler(0, 0, sectionAngle);
+                    section.GetComponent<SpriteRenderer>().color = color;
                 }
             }
         }

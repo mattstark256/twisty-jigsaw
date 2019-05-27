@@ -15,8 +15,22 @@ public class Puzzle : MonoBehaviour
     private Cross crossPrefab;
     private Cross[,] crosses;
 
+    [SerializeField]
+    private float clickRadius = 1.5f;
+    [SerializeField]
+    private Color color = Color.magenta;
 
-    void Start()
+    private Vector3 center;
+    public Vector3 GetCenter() { return center; }
+    private float width;
+    public float GetWidth() { return width; }
+
+    private bool solved = false;
+    public bool IsSolved() { return solved; }
+
+
+
+    public void Initialize()
     {
         // Find all the pieces
         pieces = GetComponentsInChildren<Piece>();
@@ -43,7 +57,7 @@ public class Puzzle : MonoBehaviour
         PieceGFXGenerator pieceGFXGenerator = GetComponent<PieceGFXGenerator>();
         foreach (Piece piece in pieces)
         {
-            pieceGFXGenerator.GeneratePieceGFX(piece);
+            pieceGFXGenerator.GeneratePieceGFX(piece, color);
         }
 
         // Generate the cross array
@@ -55,15 +69,22 @@ public class Puzzle : MonoBehaviour
                 Cross newCross = Instantiate(crossPrefab, transform);
                 newCross.transform.localPosition = (Vector3)(Vector2)overlapsArrayCorner + new Vector3(x, y, 0);
                 newCross.SetSize((overlaps[x, y] > 1) ? 1 : 0, false);
+                newCross.GetComponent<SpriteRenderer>().color = color;
                 crosses[x, y] = newCross;
             }
         }
+
+        // Find the center and width
+        center = transform.position + (Vector3)(arrayLowerBounds + (arraySize - Vector2.one) / 2);
+        width = arraySize.x;
     }
 
 
 
-    public void PuzzleClicked(Vector3 clickPosition, int mouseButton)
+    public void PuzzleClicked(Vector3 clickPosition, bool clockwise)
     {
+        if (solved) return;
+
         Vector2 localClickPosition = transform.InverseTransformPoint(clickPosition);
 
         Piece closestPiece = null;
@@ -77,10 +98,9 @@ public class Puzzle : MonoBehaviour
                 shortestDistance = distance;
             }
         }
-        if (closestPiece != null && shortestDistance < 1)
+        if (closestPiece != null && shortestDistance < clickRadius)
         {
-            if (mouseButton == 0) { closestPiece.RotateCCW(); }
-            if (mouseButton == 1) { closestPiece.RotateCW(); }
+            if (clockwise) { closestPiece.RotateCW(); } else { closestPiece.RotateCCW(); }
         }
     }
 
@@ -114,5 +134,33 @@ public class Puzzle : MonoBehaviour
                 crosses[x, y].SetSize((overlaps[x, y] > 1) ? 1 : 0, true);
             }
         }
+    }
+
+
+    public void CheckIfSolved()
+    {
+        foreach (Piece piece in pieces)
+        {
+            if (piece.IsRotating())
+            {
+                solved = false;
+                return;
+            }
+        }
+
+        for (int x = 0; x < overlaps.GetLength(0); x++)
+        {
+            for (int y = 0; y < overlaps.GetLength(1); y++)
+            {
+                if (overlaps[x, y] > 1)
+                {
+                    solved = false;
+                    return;
+                }
+            }
+        }
+
+        solved = true;
+        Debug.Log("puzzle solved");
     }
 }

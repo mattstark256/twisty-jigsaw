@@ -28,6 +28,7 @@ public class Piece : MonoBehaviour
     private Puzzle puzzle;
 
     private bool isRotating;
+    public bool IsRotating() { return isRotating; }
     private int rotationsToDo = 0;
 
 
@@ -129,8 +130,16 @@ public class Piece : MonoBehaviour
         }
         isRotating = false;
 
-        rotationsToDo -= sign;
-        if (rotationsToDo != 0) { StartCoroutine(RotateCoroutine((int)Mathf.Sign(rotationsToDo))); }
+        puzzle.CheckIfSolved();
+        if (puzzle.IsSolved())
+        {
+            rotationsToDo = 0;
+        }
+        else
+        {
+            rotationsToDo -= sign;
+            if (rotationsToDo != 0) { StartCoroutine(RotateCoroutine((int)Mathf.Sign(rotationsToDo))); }
+        }
     }
 
 
@@ -141,7 +150,7 @@ public class Piece : MonoBehaviour
         Gizmos.color = color;
         foreach (Vector2Int tile in occupiedTiles)
         {
-            Gizmos.DrawCube(transform.TransformPoint((Vector2)tile), Vector3.one);
+            Gizmos.DrawCube(transform.position + (Vector3)(Vector2)tile, Vector3.one);
         }
     }
 
