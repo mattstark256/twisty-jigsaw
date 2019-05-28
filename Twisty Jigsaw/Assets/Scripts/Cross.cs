@@ -27,7 +27,7 @@ public class Cross : MonoBehaviour
         while (size != newSize)
         {
             float sizeDelta = newSize - size;
-            float maxDelta = Time.deltaTime / 0.2f;
+            float maxDelta = Time.deltaTime / 0.25f;
             if (Mathf.Abs(sizeDelta) > maxDelta) { sizeDelta = Mathf.Sign(sizeDelta) * maxDelta; }
             size += sizeDelta;
 

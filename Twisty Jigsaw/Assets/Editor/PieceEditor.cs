@@ -11,17 +11,53 @@ public class PieceEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
+        //base.OnInspectorGUI();
 
         Piece piece = (Piece)target;
 
+        GUILayout.Label("Piece Editor", EditorStyles.boldLabel);
+        GUILayout.Label("Use right mouse in the scene view to edit the shape.", EditorStyles.label);
+
+        EditorGUILayout.BeginHorizontal();
+
         EditorGUI.BeginChangeCheck();
-        GUILayout.Button("Rotate clockwise");
+        GUILayout.Button("Rotate CCW");
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObject(piece, "Rotate piece");
-            piece.RotateTilesCW();
             EditorUtility.SetDirty(piece);
+            piece.RotateTilesCCW();
+        }
+
+        EditorGUI.BeginChangeCheck();
+        GUILayout.Button("Rotate CW");
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(piece, "Rotate piece");
+            EditorUtility.SetDirty(piece);
+            piece.RotateTilesCW();
+        }
+
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUI.BeginChangeCheck();
+        Color color = EditorGUILayout.ColorField("Color", piece.GetColor());
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(piece, "Change piece color");
+            EditorUtility.SetDirty(piece);
+            piece.SetColor(color);
+        }
+
+        EditorGUI.BeginChangeCheck();
+        GUILayout.Button("Randomize color");
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(piece, "Change piece color");
+            EditorUtility.SetDirty(piece);
+            Color randomColor = Color.HSVToRGB(Random.value, 1, 1);
+            randomColor.a = 0.5f;
+            piece.SetColor(randomColor);
         }
     }
 
@@ -33,9 +69,6 @@ public class PieceEditor : Editor
         // Update the scene view
         SceneView.RepaintAll();
 
-        // Override normal mouse interaction (This doesn't seem to be working...)
-        HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
-
         Event e = Event.current;
 
         // Get the local tile the mouse is over
@@ -45,22 +78,25 @@ public class PieceEditor : Editor
         Handles.DrawWireCube(piece.transform.TransformPoint((Vector2)selectedTile), Vector3.one);
 
 
-        if (e.type == EventType.MouseDown && e.button == 0)
+        // Right mouse button usually is used for moving the camera but I override that. 
+        if (e.type == EventType.MouseDown && e.button == 1)
         {
             drawState = !piece.GetTileOccupied(selectedTile);
             Undo.RecordObject(piece, "Change tile");
-            piece.SetTileOccupied(selectedTile, drawState);
             EditorUtility.SetDirty(piece);
+            piece.SetTileOccupied(selectedTile, drawState);
+            e.Use();
         }
 
-        if (e.type == EventType.MouseDrag && e.button == 0)
+        if (e.type == EventType.MouseDrag && e.button == 1)
         {
             if (piece.GetTileOccupied(selectedTile) != drawState)
             {
                 Undo.RecordObject(piece, "Change tile");
-                piece.SetTileOccupied(selectedTile, drawState);
                 EditorUtility.SetDirty(piece);
+                piece.SetTileOccupied(selectedTile, drawState);
             }
+            e.Use();
         }
     }
 }

@@ -8,6 +8,8 @@ public class Piece : MonoBehaviour
     private List<Vector2Int> occupiedTiles = new List<Vector2Int>();
     [SerializeField]
     private Color color = Color.white;
+    public Color GetColor() { return color; }
+    public void SetColor(Color newColor) { color = newColor; }
 
 
     private Vector2Int coOrds;
@@ -119,7 +121,7 @@ public class Piece : MonoBehaviour
         float f = 0;
         while (f < 1)
         {
-            f += Time.deltaTime / 0.2f;
+            f += Time.deltaTime / 0.25f;
             if (f > 1) f = 1;
 
             float smoothedF = Mathf.SmoothStep(0, 1, f);
