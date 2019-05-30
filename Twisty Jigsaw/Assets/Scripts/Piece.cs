@@ -27,7 +27,7 @@ public class Piece : MonoBehaviour
     private Vector2Int rotationLowerBounds;
     public Vector2Int GetRotationLowerBounds() { return rotationLowerBounds; }
 
-    private Puzzle puzzle;
+    private OverlapPuzzle puzzle;
 
     private bool isRotating;
     public bool IsRotating() { return isRotating; }
@@ -51,7 +51,7 @@ public class Piece : MonoBehaviour
         rotationUpperBounds = Vector2Int.one * maxRadius;
         rotationLowerBounds = rotationUpperBounds * -1;
 
-        puzzle = GetComponentInParent<Puzzle>();
+        puzzle = GetComponentInParent<OverlapPuzzle>();
     }
 
 
@@ -148,11 +148,11 @@ public class Piece : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        Gizmos.DrawSphere(transform.position, 0.3f);
+        Gizmos.DrawSphere(transform.position, 0.3f * transform.lossyScale.x);
         Gizmos.color = color;
         foreach (Vector2Int tile in occupiedTiles)
         {
-            Gizmos.DrawCube(transform.position + (Vector3)(Vector2)tile, Vector3.one);
+            Gizmos.DrawCube(transform.position + (Vector3)(Vector2)tile * transform.lossyScale.x, Vector3.one * transform.lossyScale.x);
         }
     }
 

@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Additive Sprite"
+﻿Shader "Custom/Additive Sprite"
 {
 	Properties
 	{

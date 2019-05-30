@@ -8,11 +8,7 @@ public class PointerInput : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            puzzle.PuzzleClicked(cam.ScreenToWorldPoint(Input.mousePosition), true);
+            puzzle.InteractionStart(cam.ScreenToWorldPoint(Input.mousePosition));
         }
-        //if (Input.GetButtonDown("Fire2"))
-        //{
-        //    puzzle.PuzzleClicked(cam.ScreenToWorldPoint(Input.mousePosition), true);
-        //}
     }
 }

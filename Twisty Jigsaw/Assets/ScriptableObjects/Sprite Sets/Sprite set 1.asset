@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 202f8997c75d89f408f9c30bf747d11f, type: 3}
+  m_Name: Sprite set 1
+  m_EditorClassIdentifier: 
+  pinPrefab: {fileID: 2256970631779220829, guid: 3d4ecebb7f2cea2409555870cd68a482,
+    type: 3}
+  sectionConvexPrefab: {fileID: 3443479765562190734, guid: f9779db2dcd767746b238ff612fc4dca,
+    type: 3}
+  sectionConcavePrefab: {fileID: 2992662201531131526, guid: c9768ba680ed5734b9581b628840ce8e,
+    type: 3}
+  sectionStraightPrefab: {fileID: 4122825269206311237, guid: 155d8cd19b854344eb646a6c288fdd2f,
+    type: 3}
+  sectionDiagonalPrefab: {fileID: 6176014728489215006, guid: 9e38f42e42dfebf4ca9d6f457c820d6d,
+    type: 3}
+  sectionSolidPrefab: {fileID: 3236402071471805199, guid: b2bb2b76c967ff74182a77ff5741dca8,
+    type: 3}
+  crossPrefab: {fileID: 3814526787325664648, guid: c6c307e34d7a0294194388971ae65fc6,
+    type: 3}

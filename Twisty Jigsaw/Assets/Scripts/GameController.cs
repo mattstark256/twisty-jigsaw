@@ -1,49 +1,81 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 // This class handles the main order of execution
 
 
-[RequireComponent(typeof(CameraController), typeof(PointerInput))]
+[RequireComponent(typeof(CameraController), typeof(PointerInput), typeof(WipeTransition))]
 public class GameController : MonoBehaviour
 {
     [SerializeField]
-    private Puzzle puzzle;
+    private PuzzleSequence puzzleSequence;
     [SerializeField]
     private GameObject continueButton;
+    [SerializeField]
+    private string mainMenuScene;
 
     private CameraController cameraController;
     private PointerInput pointerInput;
+    private WipeTransition wipeTransition;
+
+    Puzzle currentPuzzle;
+
+    [SerializeField]
+    int puzzleIndex = 0;
 
 
     private void Awake()
     {
         cameraController = GetComponent<CameraController>();
         pointerInput = GetComponent<PointerInput>();
+        wipeTransition = GetComponent<WipeTransition>();
     }
 
 
     void Start()
     {
-        // Initialize puzzle
-        puzzle.Initialize();
-
-        // Set up camera position
-        cameraController.Initialize(puzzle);
-
-        // Make sure the continue button is disabled
-        continueButton.SetActive(false);
+        LoadPuzzle();
     }
 
 
     private void Update()
     {
         // Handle pointer inputs
-        pointerInput.HandleInput(cameraController.GetCamera(), puzzle);
+        pointerInput.HandleInput(cameraController.GetCamera(), currentPuzzle);
 
         // Check if the puzzle is solved
-        if (puzzle.IsSolved() && !continueButton.activeSelf) { continueButton.SetActive(true); }
+        if (currentPuzzle.IsSolved() && !continueButton.activeSelf)
+        {
+            continueButton.SetActive(true);
+            continueButton.GetComponentInChildren<Text>().color = currentPuzzle.GetColorPalette().foregroundColor;
+        }
+    }
+
+
+    public void LoadNextPuzzle()
+    {
+        if (puzzleSequence.IsLastPuzzle(puzzleIndex))
+        {
+            SceneManager.LoadScene(mainMenuScene);
+        }
+        else
+        {
+            wipeTransition.DoWipeTransition();
+            Destroy(currentPuzzle.gameObject);
+            puzzleIndex++;
+            LoadPuzzle();
+        }
+    }
+
+    private void LoadPuzzle()
+    {
+        currentPuzzle = Instantiate(puzzleSequence.GetPuzzle(puzzleIndex).prefab);
+        currentPuzzle.Initialize();
+        continueButton.SetActive(false);
+        cameraController.Initialize(currentPuzzle);
     }
 }

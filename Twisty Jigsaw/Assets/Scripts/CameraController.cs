@@ -7,21 +7,20 @@ public class CameraController : MonoBehaviour
     [SerializeField, Tooltip("If left blank this is set to Camera.main")]
     private Camera cam;
     public Camera GetCamera() { return cam; }
-
-    [SerializeField]
-    private float borderWidth = 1;
-
+    
 
     private void Awake()
     {
         if (cam == null) { cam = Camera.main; }
+
+        // Make the view area width 1
+        cam.orthographicSize = 0.5f / cam.aspect;
+
     }
 
-
+    
     public void Initialize(Puzzle puzzle)
     {
-        cam.transform.position = puzzle.GetCenter() + Vector3.back;
-
-        cam.orthographicSize = (puzzle.GetWidth() / 2 + borderWidth) / cam.aspect;
+        cam.backgroundColor = puzzle.GetColorPalette().backgroundColor;
     }
 }
