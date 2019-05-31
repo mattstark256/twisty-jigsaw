@@ -15,12 +15,11 @@ public class CameraController : MonoBehaviour
 
         // Make the view area width 1
         cam.orthographicSize = 0.5f / cam.aspect;
-
     }
 
     
-    public void Initialize(Puzzle puzzle)
+    public void SetBackgroundColor(Color color)
     {
-        cam.backgroundColor = puzzle.GetColorPalette().backgroundColor;
+        cam.backgroundColor = color;
     }
 }

@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         // Handle pointer inputs
-        pointerInput.HandleInput(cameraController.GetCamera(), currentPuzzle);
+        pointerInput.HandleInput();
 
         // Check if the puzzle is solved
         if (currentPuzzle.IsSolved() && !continueButton.activeSelf)
@@ -53,6 +53,30 @@ public class GameController : MonoBehaviour
             continueButton.SetActive(true);
             continueButton.GetComponentInChildren<Text>().color = currentPuzzle.GetColorPalette().foregroundColor;
         }
+    }
+
+
+    public void StartInteraction(Vector3 position)
+    {
+        if (!currentPuzzle.IsSolved())
+        {
+            currentPuzzle.StartInteraction(cameraController.GetCamera().ScreenToWorldPoint(position));
+        }
+        else
+        {
+            wipeTransition.DoWipeTransition(position);
+            LoadNextPuzzle();
+        }
+    }
+
+
+    public void ContinueInteraction(Vector3 position)
+    {
+    }
+
+
+    public void EndInteraction()
+    {
     }
 
 
@@ -64,18 +88,18 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            wipeTransition.DoWipeTransition();
             Destroy(currentPuzzle.gameObject);
             puzzleIndex++;
             LoadPuzzle();
         }
     }
 
+
     private void LoadPuzzle()
     {
         currentPuzzle = Instantiate(puzzleSequence.GetPuzzle(puzzleIndex).prefab);
         currentPuzzle.Initialize();
         continueButton.SetActive(false);
-        cameraController.Initialize(currentPuzzle);
+        cameraController.SetBackgroundColor(currentPuzzle.GetColorPalette().backgroundColor);
     }
 }

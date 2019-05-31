@@ -19,5 +19,5 @@ public class Puzzle : MonoBehaviour
     public virtual void Initialize() { }
 
 
-    public virtual void InteractionStart(Vector3 position) { }
+    public virtual void StartInteraction(Vector3 position) { }
 }

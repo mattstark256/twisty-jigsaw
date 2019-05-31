@@ -15,23 +15,22 @@ public class Piece : MonoBehaviour
     private Vector2Int coOrds;
     public Vector2Int GetCoOrds() { return coOrds; }
 
-    // Rotation bounds represent the smallest region that can contain the shape at the default rotation
+    // Shape bounds represent the region occupied by the shape in local space
     private Vector2Int shapeUpperBounds;
     public Vector2Int GetShapeUpperBounds() { return shapeUpperBounds; }
     private Vector2Int shapeLowerBounds;
     public Vector2Int GetShapeLowerBounds() { return shapeLowerBounds; }
 
-    // Rotation bounds represent the smallest region that can contain the shape regardless of rotation
-    private Vector2Int rotationUpperBounds;
-    public Vector2Int GetRotationUpperBounds() { return rotationUpperBounds; }
-    private Vector2Int rotationLowerBounds;
-    public Vector2Int GetRotationLowerBounds() { return rotationLowerBounds; }
+    // Movement bounds represent the region occupied by the shape in puzzle space when the piece can be moved or rotated
+    private Vector2Int movementUpperBounds;
+    public Vector2Int GetMovementUpperBounds() { return movementUpperBounds; }
+    private Vector2Int movementLowerBounds;
+    public Vector2Int GetMovementLowerBounds() { return movementLowerBounds; }
 
-    private OverlapPuzzle puzzle;
+    protected OverlapPuzzle puzzle;
 
-    private bool isRotating;
-    public bool IsRotating() { return isRotating; }
-    private int rotationsToDo = 0;
+    protected bool isBusy;
+    public bool IsBusy() { return isBusy; }
 
 
 
@@ -48,15 +47,21 @@ public class Piece : MonoBehaviour
             shapeLowerBounds = Vector2Int.Min(shapeLowerBounds, tile);
             maxRadius = Mathf.Max(Mathf.Abs(tile.x), Mathf.Abs(tile.y), maxRadius);
         }
-        rotationUpperBounds = Vector2Int.one * maxRadius;
-        rotationLowerBounds = rotationUpperBounds * -1;
+        movementUpperBounds = Vector2Int.one * maxRadius;
+        movementLowerBounds = movementUpperBounds * -1;
 
         puzzle = GetComponentInParent<OverlapPuzzle>();
     }
 
 
-    public bool GetTileOccupied(Vector2Int tile)
+    public List<Vector2Int> GetOccupiedTiles()
     {
+        return occupiedTiles;
+    }
+
+
+    public bool GetTileOccupied(Vector2Int tile)
+    {   
         return (occupiedTiles.Contains(tile));
     }
 
@@ -70,9 +75,12 @@ public class Piece : MonoBehaviour
     }
 
 
-    public List<Vector2Int> GetOccupiedTiles()
+    public void ModifyOverlaps(int amount)
     {
-        return occupiedTiles;
+        foreach (Vector2Int occupiedTile in occupiedTiles)
+        {
+            puzzle.ModifyOverlaps(coOrds + occupiedTile, amount);
+        }
     }
 
 
@@ -94,54 +102,8 @@ public class Piece : MonoBehaviour
     }
 
 
-    public void RotateCW()
+    public virtual void StartInteraction(Vector3 position)
     {
-        rotationsToDo--;
-        if (!isRotating) { StartCoroutine(RotateCoroutine(-1)); }
-    }
-
-
-    public void RotateCCW()
-    {
-        rotationsToDo++;
-        if (!isRotating) { StartCoroutine(RotateCoroutine(1)); }
-    }
-
-
-    private IEnumerator RotateCoroutine(int sign)
-    {
-        puzzle.RemovePieceFromOverlaps(this);
-        if (sign == 1) RotateTilesCCW(); else RotateTilesCW();
-        puzzle.AddPieceToOverlaps(this);
-        puzzle.UpdateCrosses();
-
-        isRotating = true;
-        Quaternion startRotation = transform.localRotation;
-        Quaternion endRotation = startRotation * Quaternion.Euler(0, 0, sign * 90);
-        float f = 0;
-        while (f < 1)
-        {
-            f += Time.deltaTime / 0.25f;
-            if (f > 1) f = 1;
-
-            float smoothedF = Mathf.SmoothStep(0, 1, f);
-
-            transform.localRotation = Quaternion.Slerp(startRotation, endRotation, smoothedF);
-
-            yield return null;
-        }
-        isRotating = false;
-
-        puzzle.CheckIfSolved();
-        if (puzzle.IsSolved())
-        {
-            rotationsToDo = 0;
-        }
-        else
-        {
-            rotationsToDo -= sign;
-            if (rotationsToDo != 0) { StartCoroutine(RotateCoroutine((int)Mathf.Sign(rotationsToDo))); }
-        }
     }
 
 

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wipe Transition
-  m_Shader: {fileID: 4800000, guid: 2c87f89cf3ffd7a46a1890c1624a55b7, type: 3}
+  m_Shader: {fileID: 4800000, guid: f5715be6d619b09409e64349910cda62, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -76,8 +76,9 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WipeAmount: 0.9954177
+    - _WipeAmount: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _WipeCenter: {r: 665.5046, g: 1162.5688, b: 0, a: 0}

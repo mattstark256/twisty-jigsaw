@@ -2,13 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(GameController))]
 public class PointerInput : MonoBehaviour
 {
-    public void HandleInput(Camera cam, Puzzle puzzle)
+    GameController gameController;
+
+
+    private void Awake()
+    {
+        gameController = GetComponent<GameController>();
+    }
+
+
+    public void HandleInput()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            puzzle.InteractionStart(cam.ScreenToWorldPoint(Input.mousePosition));
+            //gameController.StartInteraction(cam.ScreenToWorldPoint(Input.mousePosition));
+            gameController.StartInteraction(Input.mousePosition);
         }
     }
 }

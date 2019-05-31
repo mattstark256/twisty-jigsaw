@@ -15,7 +15,7 @@ public class OverlapPuzzle : Puzzle
 
     private int[,] overlaps;
     private Vector2Int overlapsArrayCorner;
-    
+
     private Cross[,] crosses;
 
 
@@ -31,8 +31,8 @@ public class OverlapPuzzle : Puzzle
         Vector2Int arrayLowerBounds = new Vector2Int(int.MaxValue, int.MaxValue);
         foreach (Piece piece in pieces)
         {
-            arrayUpperBounds = Vector2Int.Max(arrayUpperBounds, piece.GetCoOrds() + piece.GetRotationUpperBounds());
-            arrayLowerBounds = Vector2Int.Min(arrayLowerBounds, piece.GetCoOrds() + piece.GetRotationLowerBounds());
+            arrayUpperBounds = Vector2Int.Max(arrayUpperBounds, piece.GetCoOrds() + piece.GetMovementUpperBounds());
+            arrayLowerBounds = Vector2Int.Min(arrayLowerBounds, piece.GetCoOrds() + piece.GetMovementLowerBounds());
         }
         overlapsArrayCorner = arrayLowerBounds;
         Vector2Int arraySize = arrayUpperBounds - arrayLowerBounds + Vector2Int.one;
@@ -41,7 +41,7 @@ public class OverlapPuzzle : Puzzle
         // Populate the overlaps array
         foreach (Piece piece in pieces)
         {
-            AddPieceToOverlaps(piece);
+            piece.ModifyOverlaps(1);
         }
 
         // Generate the piece GFX
@@ -74,9 +74,9 @@ public class OverlapPuzzle : Puzzle
 
 
 
-    public override void InteractionStart(Vector3 position)
+    public override void StartInteraction(Vector3 position)
     {
-        base.InteractionStart(position);
+        base.StartInteraction(position);
 
         if (solved) return;
 
@@ -95,28 +95,18 @@ public class OverlapPuzzle : Puzzle
         }
         if (closestPiece != null && shortestDistance < clickRadius)
         {
-            closestPiece.RotateCW();
+            closestPiece.StartInteraction(localPosition);
         }
     }
 
 
-    public void AddPieceToOverlaps(Piece piece)
+    // Change a value of the overlaps array. The coOrds are in the puzzle's local space.
+    public void ModifyOverlaps(Vector2Int coOrds, int amount)
     {
-        foreach (Vector2Int occupiedTile in piece.GetOccupiedTiles())
-        {
-            Vector2Int overlapTile = occupiedTile + piece.GetCoOrds() - overlapsArrayCorner;
-            overlaps[overlapTile.x, overlapTile.y]++;
-        }
-    }
-
-
-    public void RemovePieceFromOverlaps(Piece piece)
-    {
-        foreach (Vector2Int occupiedTile in piece.GetOccupiedTiles())
-        {
-            Vector2Int overlapTile = occupiedTile + piece.GetCoOrds() - overlapsArrayCorner;
-            overlaps[overlapTile.x, overlapTile.y]--;
-        }
+        // Convert coOrds to array space
+        coOrds -= overlapsArrayCorner;
+        // Modify overlaps array
+        overlaps[coOrds.x, coOrds.y] += amount;
     }
 
 
@@ -136,7 +126,7 @@ public class OverlapPuzzle : Puzzle
     {
         foreach (Piece piece in pieces)
         {
-            if (piece.IsRotating())
+            if (piece.IsBusy())
             {
                 solved = false;
                 return;

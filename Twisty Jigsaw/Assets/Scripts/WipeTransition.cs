@@ -26,27 +26,19 @@ public class WipeTransition : MonoBehaviour
     {
         renderTexture = new RenderTexture(Screen.width, Screen.height, 24, RenderTextureFormat.Default);
         wipeImage.material.SetTexture("_MainTex", renderTexture);
-        wipeImage.material.SetFloat("_AspectRatio", (float)Screen.width / Screen.height);
         wipeImage.enabled = false;
     }
 
 
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    DoWipeTransition();
-        //}
-    }
-
-
-    public void DoWipeTransition()
+    public void DoWipeTransition(Vector3 interactionPosition)
     {
         Debug.Log("doing wipe");
         Camera cam = cameraController.GetCamera();
         cam.targetTexture = renderTexture;
         cam.Render();
         cam.targetTexture = null;
+
+        wipeImage.material.SetVector("_WipeCenter", interactionPosition);
 
         StartCoroutine(WipeCoroutine());
     }
@@ -59,8 +51,13 @@ public class WipeTransition : MonoBehaviour
         float f = 0;
         while (f < 1)
         {
-            //wipeImage.material.SetFloat("_WipeAmount", f);
-            wipeImage.material.SetFloat("_WipeAmount", Mathf.Pow(f, 2f));
+            wipeImage.material.SetFloat("_WipeAmount", f);
+
+            // Some other functions I tried
+            //wipeImage.material.SetFloat("_WipeAmount", 1 - Mathf.Pow(1 - f, 0.5f));
+            //wipeImage.material.SetFloat("_WipeAmount", Mathf.Pow(f, 2f));
+            //wipeImage.material.SetFloat("_WipeAmount", 0.3f * Mathf.Tan(f * Mathf.PI * 0.5f));
+            //wipeImage.material.SetFloat("_WipeAmount", (Mathf.Pow(f * 10 + 1, 2f) - 1) / 10);
 
             yield return null;
 

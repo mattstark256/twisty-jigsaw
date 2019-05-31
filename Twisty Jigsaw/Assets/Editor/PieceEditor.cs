@@ -6,8 +6,8 @@ using UnityEditor;
 [CustomEditor(typeof(Piece))]
 public class PieceEditor : Editor
 {
-    bool drawState = false;
-
+    private bool drawState = false;
+    
 
     public override void OnInspectorGUI()
     {
@@ -62,7 +62,7 @@ public class PieceEditor : Editor
     }
 
 
-    private void OnSceneGUI()
+    protected virtual void OnSceneGUI()
     {
         Piece piece = (Piece)target;
 
