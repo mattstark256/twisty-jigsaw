@@ -18,6 +18,9 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private string mainMenuScene;
 
+    //[SerializeField]
+    //private PulseCircle pulsePrefab;
+
     private CameraController cameraController;
     private PointerInput pointerInput;
     private WipeTransition wipeTransition;
@@ -60,7 +63,13 @@ public class GameController : MonoBehaviour
     {
         if (!currentPuzzle.IsSolved())
         {
-            currentPuzzle.StartInteraction(cameraController.GetCamera().ScreenToWorldPoint(position));
+            Vector3 worldPosition = cameraController.GetCamera().ScreenToWorldPoint(position);
+            worldPosition.z = 0;
+            currentPuzzle.StartInteraction(worldPosition);
+
+            //PulseCircle pulse = Instantiate(pulsePrefab);
+            //pulse.transform.position = worldPosition;
+            //pulse.SetColor(currentPuzzle.GetColorPalette().foregroundColor);
         }
         else
         {

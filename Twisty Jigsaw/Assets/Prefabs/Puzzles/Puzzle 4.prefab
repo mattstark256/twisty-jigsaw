@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14445855334438c40950a4a5996c7946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorPalette: {fileID: 11400000, guid: a1239fc36173dee42a8d4a71a287b4df, type: 2}
+  colorPalette: {fileID: 11400000, guid: 2495917438016934aa752208154d421e, type: 2}
   spriteSet: {fileID: 11400000, guid: 4ced0c2977adb0b49abbc364d4f47fba, type: 2}
 --- !u!114 &6803409507118578853
 MonoBehaviour:
