@@ -7,6 +7,8 @@ using UnityEngine;
 public class PuzzleSequence : ScriptableObject
 {
     [SerializeField]
+    protected ColorPalette colorPalette;
+    [SerializeField]
     private List<PuzzleSO> puzzles;
 
 
@@ -22,14 +24,34 @@ public class PuzzleSequence : ScriptableObject
     }
 
 
-    public int GetPuzzleIndex(PuzzleSO puzzleSO)
+    public int GetPuzzleCount()
     {
-        return puzzles.FindIndex(l => l == puzzleSO);
+        return puzzles.Count;
     }
 
 
-    public int GetPuzzleIndex(OverlapPuzzle puzzle)
+    // The foreground and background colors flip between consecutive puzzles
+    public Color GetColor(int colorIndex, int puzzleIndex)
     {
-        return puzzles.FindIndex(p => p.prefab == puzzle);
+        return (puzzleIndex % 2 == 0) ?
+            (colorIndex == 0) ?
+                colorPalette.foregroundColor :
+                colorPalette.backgroundColor :
+            (colorIndex == 0) ?
+                colorPalette.backgroundColor :
+                colorPalette.foregroundColor;
     }
+
+
+    // I don't think I'll need this
+    //public int GetPuzzleIndex(PuzzleSO puzzleSO)
+    //{
+    //    return puzzles.FindIndex(l => l == puzzleSO);
+    //}
+
+    // I don't think I'll need this
+    //public int GetPuzzleIndex(OverlapPuzzle puzzle)
+    //{
+    //    return puzzles.FindIndex(p => p.prefab == puzzle);
+    //}
 }
