@@ -16,7 +16,7 @@
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="Sections.svg"
-   inkscape:export-filename="C:\Users\Matt\Documents\misc\unity\practice excercises\twisty-jigsaw\Twisty Jigsaw\Assets\Textures\Piece Sections 2\Cross.png"
+   inkscape:export-filename="C:\Users\Matt\Documents\misc\unity\practice excercises\twisty-jigsaw\Twisty Jigsaw\Assets\Textures\Piece Sections\Cross.png"
    inkscape:export-xdpi="96.000008"
    inkscape:export-ydpi="96.000008">
   <defs
@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.1739078"
-     inkscape:cx="78.215913"
-     inkscape:cy="134.12932"
+     inkscape:zoom="4.6956312"
+     inkscape:cx="155.57871"
+     inkscape:cy="118.31308"
      inkscape:document-units="px"
      inkscape:current-layer="layer6"
      showgrid="false"
@@ -305,8 +305,8 @@
      style="display:inline">
     <path
        id="path939"
-       style="fill:none;stroke:#ffffff;stroke-width:4.23333334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 46.0375,46.0375 21.695833,21.695833 m 0,24.341667 L 46.0375,21.695833"
+       style="fill:none;stroke:#ffffff;stroke-width:4.23333311;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 44.979167,44.979167 -22.225,-22.225 m 0,22.225 22.225,-22.225"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
   </g>

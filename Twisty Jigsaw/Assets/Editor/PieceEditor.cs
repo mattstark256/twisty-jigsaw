@@ -11,7 +11,7 @@ public class PieceEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        //base.OnInspectorGUI();
+        base.OnInspectorGUI();
 
         Piece piece = (Piece)target;
 
@@ -41,12 +41,12 @@ public class PieceEditor : Editor
         EditorGUILayout.EndHorizontal();
 
         EditorGUI.BeginChangeCheck();
-        Color color = EditorGUILayout.ColorField("Color", piece.GetColor());
+        Color color = EditorGUILayout.ColorField("Color", piece.GetEditorColor());
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObject(piece, "Change piece color");
             EditorUtility.SetDirty(piece);
-            piece.SetColor(color);
+            piece.SetEditorColor(color);
         }
 
         EditorGUI.BeginChangeCheck();
@@ -57,7 +57,7 @@ public class PieceEditor : Editor
             EditorUtility.SetDirty(piece);
             Color randomColor = Color.HSVToRGB(Random.value, 1, 1);
             randomColor.a = 0.5f;
-            piece.SetColor(randomColor);
+            piece.SetEditorColor(randomColor);
         }
     }
 

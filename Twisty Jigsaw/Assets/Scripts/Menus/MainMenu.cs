@@ -23,9 +23,8 @@ public class MainMenu : MenuScreen
             gameData.GetSaveData().SaveDataExists())
         { startButton.SetActive(false); }
         
-        if (gameData.GetPuzzleManager().GetPuzzleState() == PuzzleState.gameComplete ||
-            gameData.GetPuzzleManager().GetPuzzleState() == PuzzleState.notLoaded && (
-            !gameData.GetSaveData().SaveDataExists() ||
+        if (gameData.GetPuzzleManager().GetPuzzleState() == PuzzleState.notLoaded &&
+            (!gameData.GetSaveData().SaveDataExists() ||
             gameData.GetSaveData().GetSequencesCompleted() == gameData.GetSequenceSequence().GetSequenceCount()))
         { continueButton.SetActive(false); }
 

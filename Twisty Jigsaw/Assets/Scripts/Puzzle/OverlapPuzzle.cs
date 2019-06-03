@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(PieceGFXGenerator))]
 public class OverlapPuzzle : Puzzle
 {
+    //[SerializeField]
+    //private SpriteSet spriteSet;
     [SerializeField]
-    private SpriteSet spriteSet;
+    private Cross crossPrefab;
 
     private const float clickRadius = 1.5f;
+    private const float puzzleSpaceAspectRatio = 1.2f;
 
     private Piece[] pieces;
+    public Piece[] GetPieces() { return pieces; }
 
     private int[,] overlaps;
     private Vector2Int overlapsArrayCorner;
@@ -44,11 +47,11 @@ public class OverlapPuzzle : Puzzle
             piece.ModifyOverlaps(1);
         }
 
-        // Generate the piece GFX
-        PieceGFXGenerator pieceGFXGenerator = GetComponent<PieceGFXGenerator>();
-        foreach (Piece piece in pieces)
+        //// Generate the piece GFX
+        //PieceGFXGenerator pieceGFXGenerator = GetComponent<PieceGFXGenerator>();
+        foreach (PieceGFXGenerator gfx in GetComponentsInChildren<PieceGFXGenerator>())
         {
-            pieceGFXGenerator.GeneratePieceGFX(piece, spriteSet, color);
+            gfx.GeneratePieceGFX(color);
         }
 
         // Generate the cross array
@@ -57,7 +60,7 @@ public class OverlapPuzzle : Puzzle
         {
             for (int y = 0; y < crosses.GetLength(1); y++)
             {
-                Cross newCross = Instantiate(spriteSet.crossPrefab, transform);
+                Cross newCross = Instantiate(crossPrefab, transform);
                 newCross.transform.localPosition = (Vector3)(Vector2)overlapsArrayCorner + new Vector3(x, y, 0);
                 newCross.SetSize((overlaps[x, y] > 1) ? 1 : 0, false);
                 newCross.GetComponent<SpriteRenderer>().color = color;
@@ -68,8 +71,11 @@ public class OverlapPuzzle : Puzzle
         // Scale and position the puzzle to fit in the view area. The view area always has width 1.
         Vector3 center = arrayLowerBounds + (arraySize - Vector2.one) / 2;
         float width = arraySize.x + 2;
-        transform.localScale = Vector3.one / width;
-        transform.localPosition = -center / width;
+        float height = arraySize.y + 2;
+        float scaleFactor = (height / puzzleSpaceAspectRatio > width) ? height / puzzleSpaceAspectRatio : width;
+
+        transform.localScale = Vector3.one / scaleFactor;
+        transform.localPosition = -center / scaleFactor;
     }
 
 

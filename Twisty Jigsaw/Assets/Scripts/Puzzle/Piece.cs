@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Piece : MonoBehaviour
 {
-    [SerializeField]
+    // These need to be serialized in order to be saved
+    [SerializeField, HideInInspector]
     private List<Vector2Int> occupiedTiles = new List<Vector2Int>();
-    [SerializeField]
-    private Color color = Color.white;
-    public Color GetColor() { return color; }
-    public void SetColor(Color newColor) { color = newColor; }
+    [SerializeField, HideInInspector]
+    private Color editorColor = Color.magenta;
+    public Color GetEditorColor() { return editorColor; }
+    public void SetEditorColor(Color newEditorColor) { editorColor = newEditorColor; }
 
 
     private Vector2Int coOrds;
@@ -107,11 +109,11 @@ public class Piece : MonoBehaviour
     }
 
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         Gizmos.DrawSphere(transform.position, 0.3f * transform.lossyScale.x);
-        Gizmos.color = color;
+        Gizmos.color = editorColor;
         foreach (Vector2Int tile in occupiedTiles)
         {
             Gizmos.DrawCube(transform.position + (Vector3)(Vector2)tile * transform.lossyScale.x, Vector3.one * transform.lossyScale.x);

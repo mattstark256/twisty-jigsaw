@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(Piece))]
 public class PieceGFXGenerator : MonoBehaviour
 {
-    public void GeneratePieceGFX(Piece piece, SpriteSet spriteSet, Color color)
+    [SerializeField]
+    private Tileset spriteSet;
+    [SerializeField]
+    public GameObject pinPrefab;
+
+
+    public void GeneratePieceGFX(Color color)
     {
+        Piece piece = GetComponent<Piece>();
+
         // Generate the pin at the center of a piece
-        GameObject pin = Instantiate(spriteSet.pinPrefab);
+        GameObject pin = Instantiate(pinPrefab);
         pin.transform.parent = piece.transform;
         pin.transform.localPosition = Vector3.zero;
         pin.GetComponent<SpriteRenderer>().color = color;

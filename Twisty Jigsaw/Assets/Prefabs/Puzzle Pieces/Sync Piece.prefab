@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1723530113356753679
+--- !u!1 &7232582095689980887
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,56 +8,56 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1723530113356753678}
-  - component: {fileID: 1723530113356753673}
-  - component: {fileID: 9051135081107493703}
+  - component: {fileID: 328306391813713117}
+  - component: {fileID: 1008530849814051835}
+  - component: {fileID: 325172780117932560}
   m_Layer: 0
-  m_Name: Rotating Piece
+  m_Name: Sync Piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1723530113356753678
+--- !u!4 &328306391813713117
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723530113356753679}
+  m_GameObject: {fileID: 7232582095689980887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1723530113356753673
+--- !u!114 &1008530849814051835
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723530113356753679}
+  m_GameObject: {fileID: 7232582095689980887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e103693bd53096844a77102b5c8c8f2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b29a5c6d4e415a4c81af6126b42e8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   occupiedTiles: []
   editorColor: {r: 1, g: 0, b: 1, a: 1}
---- !u!114 &9051135081107493703
+--- !u!114 &325172780117932560
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723530113356753679}
+  m_GameObject: {fileID: 7232582095689980887}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad7ca25dbc0a5e040ba18ba1349d9cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteSet: {fileID: 11400000, guid: 4ced0c2977adb0b49abbc364d4f47fba, type: 2}
-  pinPrefab: {fileID: 2256970631779220829, guid: 3d4ecebb7f2cea2409555870cd68a482,
+  pinPrefab: {fileID: 2256970631779220829, guid: 65527eda9cae6984896f233864a90dd2,
     type: 3}

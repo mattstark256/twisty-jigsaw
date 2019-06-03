@@ -751,7 +751,9 @@ MonoBehaviour:
   puzzleUIParent: {fileID: 893079296}
   puzzleNumberTextPrefab: {fileID: 246995749098280541, guid: 86fe9b8fa5d86a34d8634641c0de6395,
     type: 3}
-  continueTextPrefab: {fileID: 246995749098280541, guid: b8556055a6a0992449a9501f6856a67a,
+  solvedTextPrefab: {fileID: 246995749098280541, guid: b8556055a6a0992449a9501f6856a67a,
+    type: 3}
+  continueTextPrefab: {fileID: 246995749098280541, guid: bd9ac784460a85249817bc09ffdf9d8f,
     type: 3}
   tutorialTextPrefab: {fileID: 246995749098280541, guid: e7cd3d462a72a4b429aac931dba9328a,
     type: 3}

@@ -19,6 +19,8 @@ public class PuzzleManager : MonoBehaviour
     [SerializeField]
     private Text puzzleNumberTextPrefab;
     [SerializeField]
+    private Text solvedTextPrefab;
+    [SerializeField]
     private Text continueTextPrefab;
     [SerializeField]
     private Text tutorialTextPrefab;
@@ -36,6 +38,7 @@ public class PuzzleManager : MonoBehaviour
     private Puzzle currentPuzzle = null;
 
     private Text puzzleNumberText;
+    private Text solvedText;
     private Text continueText;
     private Text tutorialText;
     private Text sequenceCompleteText;
@@ -81,9 +84,10 @@ public class PuzzleManager : MonoBehaviour
                 // Check if it's complete
                 if (currentPuzzle.IsSolved())
                 {
-                    // Show "Continue" text
+                    // Show "Solved" text
+                    solvedText = Instantiate(solvedTextPrefab, puzzleUIParent);
                     continueText = Instantiate(continueTextPrefab, puzzleUIParent);
-                    continueText.color = gameData.GetSequenceSequence().GetSequence(sequenceIndex).GetColor(0, puzzleIndex);
+                    UpdateColors(sequenceIndex, puzzleIndex);
 
                     // Save any progress
                     if (gameData.GetSequenceSequence().GetSequence(sequenceIndex).IsLastPuzzle(puzzleIndex))
@@ -122,6 +126,16 @@ public class PuzzleManager : MonoBehaviour
                     LoadPuzzle(sequenceIndex + 1, 0);
                 }
                 break;
+
+
+            case PuzzleState.gameComplete:
+                if (puzzleInput.GetPointerPressState() == PressState.pressed)
+                {
+                    DestroyObjects();
+                    puzzleState = PuzzleState.notLoaded;
+                    gameData.GetMenuManager().OpenMainMenu();
+                }
+                break;
         }
     }
 
@@ -135,21 +149,17 @@ public class PuzzleManager : MonoBehaviour
 
         puzzleNumberText = Instantiate(puzzleNumberTextPrefab, puzzleUIParent);
         puzzleNumberText.text = (sequenceIndex + 1) + " - " + (puzzleIndex + 1);
-
-        PuzzleSequence puzzleSequence = gameData.GetSequenceSequence().GetSequence(sequenceIndex);
-        currentPuzzle = Instantiate(puzzleSequence.GetPuzzle(puzzleIndex));
-        currentPuzzle.Initialize(puzzleSequence.GetColor(0, puzzleIndex));
+        
+        currentPuzzle = Instantiate(gameData.GetSequenceSequence().GetSequence(sequenceIndex).GetPuzzle(puzzleIndex));
+        currentPuzzle.Initialize(gameData.GetSequenceSequence().GetSequence(sequenceIndex).GetColor(0, puzzleIndex));
 
         if (currentPuzzle.GetTutorialText() != "")
         {
             tutorialText = Instantiate(tutorialTextPrefab, puzzleUIParent);
             tutorialText.text = currentPuzzle.GetTutorialText();
-            tutorialText.color = puzzleSequence.GetColor(0, puzzleIndex);
         }
 
-        puzzleNumberText.color = puzzleSequence.GetColor(0, puzzleIndex);
-        gameData.GetCameraController().SetBackgroundColor(puzzleSequence.GetColor(1, puzzleIndex));
-        openMenuButton.SetColor(puzzleSequence.GetColor(0, puzzleIndex));
+        UpdateColors(sequenceIndex, puzzleIndex);
 
         puzzleState = PuzzleState.unsolved;
     }
@@ -160,12 +170,10 @@ public class PuzzleManager : MonoBehaviour
         DestroyObjects();
 
         sequenceCompleteText = Instantiate(sequenceCompleteTextPrefab, puzzleUIParent);
-        sequenceCompleteText.text = "Sequence " + (sequenceIndex + 1) + " complete!\nWell done!\nTap to continue";
+        sequenceCompleteText.text = "Sequence " + (sequenceIndex + 1) + " complete!\nWell done!";
+        continueText = Instantiate(continueTextPrefab, puzzleUIParent);
 
-        PuzzleSequence puzzleSequence = gameData.GetSequenceSequence().GetSequence(sequenceIndex);
-        sequenceCompleteText.color = puzzleSequence.GetColor(0, puzzleIndex + 1);
-        gameData.GetCameraController().SetBackgroundColor(puzzleSequence.GetColor(1, puzzleIndex + 1));
-        openMenuButton.SetColor(puzzleSequence.GetColor(0, puzzleIndex + 1));
+        UpdateColors(sequenceIndex, puzzleIndex + 1);
 
         puzzleState = PuzzleState.sequenceComplete;
     }
@@ -176,11 +184,9 @@ public class PuzzleManager : MonoBehaviour
         DestroyObjects();
 
         gameCompleteText = Instantiate(gameCompleteTextPrefab, puzzleUIParent);
+        continueText = Instantiate(continueTextPrefab, puzzleUIParent);
 
-        PuzzleSequence puzzleSequence = gameData.GetSequenceSequence().GetSequence(sequenceIndex);
-        gameCompleteText.color = puzzleSequence.GetColor(0, puzzleIndex + 1);
-        gameData.GetCameraController().SetBackgroundColor(puzzleSequence.GetColor(1, puzzleIndex + 1));
-        openMenuButton.SetColor(puzzleSequence.GetColor(0, puzzleIndex + 1));
+        UpdateColors(sequenceIndex, puzzleIndex + 1);
 
         puzzleState = PuzzleState.gameComplete;
     }
@@ -194,13 +200,33 @@ public class PuzzleManager : MonoBehaviour
     }
 
 
+    // Destroy spawned objects
     private void DestroyObjects()
     {
         if (currentPuzzle != null) { Destroy(currentPuzzle.gameObject); }
-        if (puzzleNumberText != null) { Destroy(puzzleNumberText); }
-        if (continueText != null) { Destroy(continueText); }
-        if (tutorialText != null) { Destroy(tutorialText); }
-        if (sequenceCompleteText != null) { Destroy(sequenceCompleteText); }
-        if (gameCompleteText != null) { Destroy(gameCompleteText); }
+        if (puzzleNumberText != null) { Destroy(puzzleNumberText.gameObject); }
+        if (solvedText != null) { Destroy(solvedText.gameObject); }
+        if (continueText != null) { Destroy(continueText.gameObject); }
+        if (tutorialText != null) { Destroy(tutorialText.gameObject); }
+        if (sequenceCompleteText != null) { Destroy(sequenceCompleteText.gameObject); }
+        if (gameCompleteText != null) { Destroy(gameCompleteText.gameObject); }
+    }
+
+
+    // Get the colors for the specified sequence and puzzle and apply them to any game UI elements
+    private void UpdateColors(int colorSequenceIndex, int colorPuzzleIndex)
+    {
+        Color foregroundColor = gameData.GetSequenceSequence().GetSequence(colorSequenceIndex).GetColor(0, colorPuzzleIndex);
+        Color backgroundColor = gameData.GetSequenceSequence().GetSequence(colorSequenceIndex).GetColor(1, colorPuzzleIndex);
+
+        openMenuButton.SetColor(foregroundColor);
+        if (puzzleNumberText != null) { puzzleNumberText.color = foregroundColor; }
+        if (solvedText != null) { solvedText.color = foregroundColor; }
+        if (continueText != null) { continueText.color = foregroundColor; }
+        if (tutorialText != null) { tutorialText.color = foregroundColor; }
+        if (sequenceCompleteText != null) { sequenceCompleteText.color = foregroundColor; }
+        if (gameCompleteText != null) { gameCompleteText.color = foregroundColor; }
+
+        gameData.GetCameraController().SetBackgroundColor(backgroundColor);
     }
 }

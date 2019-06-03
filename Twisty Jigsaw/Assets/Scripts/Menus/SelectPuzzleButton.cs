@@ -26,14 +26,21 @@ public class SelectPuzzleButton : MonoBehaviour
         puzzleTitle.text = "Puzzle " + (puzzleIndex + 1);
 
         if (sequenceIndex == gameData.GetSaveData().GetSequencesCompleted() &&
-            puzzleIndex > gameData.GetSaveData().GetPuzzlesCompleted())
+            puzzleIndex >= gameData.GetSaveData().GetPuzzlesCompleted())
         {
-            puzzleStatus.text = "Locked";
-            button.interactable = false;
+            if (puzzleIndex > gameData.GetSaveData().GetPuzzlesCompleted())
+            {
+                puzzleStatus.text = "Locked";
+                button.interactable = false;
+            }
+            else
+            {
+                puzzleStatus.enabled = false;
+            }
         }
         else
         {
-            puzzleStatus.enabled = false;
+            puzzleStatus.text = "Solved";
         }
     }
 
