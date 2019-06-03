@@ -330,7 +330,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 670362701}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -373,7 +373,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 3
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: dab06fab30bd5154d9fc8e82a65d71df, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -709,8 +709,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wipeImage: {fileID: 756616403}
-  circleWipe: {fileID: 2100000, guid: dab06fab30bd5154d9fc8e82a65d71df, type: 2}
-  circleWipeDuration: 1
+  irisWipe: {fileID: 2100000, guid: dab06fab30bd5154d9fc8e82a65d71df, type: 2}
+  irisWipeDuration: 1
   curtainWipe: {fileID: 2100000, guid: be2df5622af74164082f971aae5a376f, type: 2}
   curtainWipeDuration: 0.5
 --- !u!114 &1895780645
@@ -732,6 +732,10 @@ MonoBehaviour:
     type: 3}
   selectPuzzleMenuPrefab: {fileID: 1179387217263272554, guid: 676f8635b2a78734bbed03af5d5b8dbb,
     type: 3}
+  confirmMenuPrefab: {fileID: 8386484307035433877, guid: 14cb12c403a4d0a41b131b33e8732e00,
+    type: 3}
+  settingsMenuPrefab: {fileID: 7650531246137744215, guid: e3d96bf9ab06ee14d8eef160987c9f37,
+    type: 3}
 --- !u!114 &1895780646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,7 +749,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzleUIParent: {fileID: 893079296}
+  puzzleNumberTextPrefab: {fileID: 246995749098280541, guid: 86fe9b8fa5d86a34d8634641c0de6395,
+    type: 3}
   continueTextPrefab: {fileID: 246995749098280541, guid: b8556055a6a0992449a9501f6856a67a,
+    type: 3}
+  tutorialTextPrefab: {fileID: 246995749098280541, guid: e7cd3d462a72a4b429aac931dba9328a,
+    type: 3}
+  sequenceCompleteTextPrefab: {fileID: 246995749098280541, guid: c2085fe3d39e63341bb380cbd3b50369,
+    type: 3}
+  gameCompleteTextPrefab: {fileID: 246995749098280541, guid: e5f6861b7c6a81f43a34391585e71608,
     type: 3}
   openMenuButtonPrefab: {fileID: 2027535246069552797, guid: 8196b5ee45ddd1645abe24437ba0d34a,
     type: 3}

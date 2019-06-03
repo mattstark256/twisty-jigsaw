@@ -13,33 +13,27 @@ public class MainMenu : MenuScreen
     private GameObject selectPuzzleButton;
     [SerializeField]
     private GameObject newGameButton;
-    [SerializeField]
-    private GameObject settingsButton;
 
 
     public override void Initialize(GameData _gameData)
     {
         base.Initialize(_gameData);
 
-        startButton.SetActive(false);
-        continueButton.SetActive(false);
-        selectPuzzleButton.SetActive(false);
-        newGameButton.SetActive(false);
+        if (gameData.GetPuzzleManager().GetPuzzleState() != PuzzleState.notLoaded ||
+            gameData.GetSaveData().SaveDataExists())
+        { startButton.SetActive(false); }
+        
+        if (gameData.GetPuzzleManager().GetPuzzleState() == PuzzleState.gameComplete ||
+            gameData.GetPuzzleManager().GetPuzzleState() == PuzzleState.notLoaded && (
+            !gameData.GetSaveData().SaveDataExists() ||
+            gameData.GetSaveData().GetSequencesCompleted() == gameData.GetSequenceSequence().GetSequenceCount()))
+        { continueButton.SetActive(false); }
 
-        if (!gameData.GetPuzzleManager().InteractionsAvailable() &&
-            !gameData.GetSaveData().SaveDataExists())
-        { startButton.SetActive(true); }
+        if (!gameData.GetSaveData().SaveDataExists())
+        { selectPuzzleButton.SetActive(false); }
 
-        if (gameData.GetPuzzleManager().InteractionsAvailable() ||
-            gameData.GetSaveData().SaveDataExists() &&
-            gameData.GetSaveData().GetSequencesCompleted() < gameData.GetSequenceSequence().GetSequenceCount())
-        { continueButton.SetActive(true); }
-
-        if (gameData.GetSaveData().SaveDataExists())
-        { selectPuzzleButton.SetActive(true); }
-
-        if (gameData.GetSaveData().SaveDataExists())
-        { newGameButton.SetActive(true); }
+        if (!gameData.GetSaveData().SaveDataExists())
+        { newGameButton.SetActive(false); }
     }
 
 
@@ -52,8 +46,9 @@ public class MainMenu : MenuScreen
 
     public void Continue()
     {
-        if (!gameData.GetPuzzleManager().InteractionsAvailable())
+        if (gameData.GetPuzzleManager().GetPuzzleState() == PuzzleState.notLoaded)
         {
+            // Load the most recent puzzle
             gameData.GetPuzzleManager().LoadPuzzle(gameData.GetSaveData().GetSequencesCompleted(), gameData.GetSaveData().GetPuzzlesCompleted());
         }
         gameData.GetMenuManager().CloseMenu();
@@ -68,8 +63,18 @@ public class MainMenu : MenuScreen
 
     public void StartNewGame()
     {
-        gameData.GetSaveData().EraseSaveData();
-        gameData.GetPuzzleManager().LoadPuzzle(0, 0);
-        gameData.GetMenuManager().CloseMenu();
+        gameData.GetMenuManager().OpenConfirmMenu();
+    }
+
+
+    public void Settings()
+    {
+        gameData.GetMenuManager().OpenSettingsMenu();
+    }
+
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

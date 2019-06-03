@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14445855334438c40950a4a5996c7946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorPalette: {fileID: 11400000, guid: 759ac91cdc5267043874798b5eef707f, type: 2}
+  tutorialText: Tap the shapes to rotate them until they no longer overlap.
   spriteSet: {fileID: 11400000, guid: 4ced0c2977adb0b49abbc364d4f47fba, type: 2}
 --- !u!114 &1967851091219372265
 MonoBehaviour:

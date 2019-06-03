@@ -1,4 +1,4 @@
-﻿Shader "Custom/Wipe Transition"
+﻿Shader "Custom/Image Wipe Transition"
 {
     Properties
     {
@@ -55,7 +55,6 @@
 				float2 correctedUV = float2((i.uv.x - 0.5) * _AspectRatio + 0.5f, i.uv.y);
 				fixed4 wipeCol = tex2D(_WipeTex, correctedUV);
 				clip(wipeCol.r - _WipeAmount);
-
 
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);

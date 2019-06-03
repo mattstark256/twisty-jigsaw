@@ -9,10 +9,10 @@ public class PuzzleSequence : ScriptableObject
     [SerializeField]
     protected ColorPalette colorPalette;
     [SerializeField]
-    private List<PuzzleSO> puzzles;
+    private List<Puzzle> puzzles;
 
 
-    public PuzzleSO GetPuzzle(int index)
+    public Puzzle GetPuzzle(int index)
     {
         return puzzles[index];
     }

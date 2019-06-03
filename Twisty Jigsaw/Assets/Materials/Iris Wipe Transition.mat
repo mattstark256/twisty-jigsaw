@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Circle Wipe Transition
+  m_Name: Iris Wipe Transition
   m_Shader: {fileID: 4800000, guid: f5715be6d619b09409e64349910cda62, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -76,9 +76,9 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WipeAmount: 0.9994605
+    - _WipeAmount: 0.9942045
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _WipeCenter: {r: 676.756, g: 693.2581, b: 0, a: 0}
+    - _WipeCenter: {r: 376.1636, g: 1248.4062, b: 0, a: 0}

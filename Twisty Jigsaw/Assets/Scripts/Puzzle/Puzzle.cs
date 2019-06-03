@@ -8,6 +8,11 @@ using UnityEngine;
 
 public class Puzzle : MonoBehaviour
 {
+    [SerializeField]
+    private string tutorialText;
+    public string GetTutorialText() { return tutorialText; }
+
+
     protected bool solved = false;
     public bool IsSolved() { return solved; }
 

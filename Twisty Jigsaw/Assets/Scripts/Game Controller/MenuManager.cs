@@ -16,6 +16,10 @@ public class MenuManager : MonoBehaviour
     private SelectSequenceMenu selectSequenceMenuPrefab;
     [SerializeField]
     private SelectPuzzleMenu selectPuzzleMenuPrefab;
+    [SerializeField]
+    private ConfirmMenu confirmMenuPrefab;
+    [SerializeField]
+    private SettingsMenu settingsMenuPrefab;
 
     private MenuScreen currentMenuScreen;
 
@@ -55,6 +59,18 @@ public class MenuManager : MonoBehaviour
     {
         SwitchToScreen(selectPuzzleMenuPrefab);
         ((SelectPuzzleMenu)currentMenuScreen).InitializeForSequence(sequenceIndex);
+    }
+
+
+    public void OpenConfirmMenu()
+    {
+        SwitchToScreen(confirmMenuPrefab);
+    }
+
+
+    public void OpenSettingsMenu()
+    {
+        SwitchToScreen(settingsMenuPrefab);
     }
 
 

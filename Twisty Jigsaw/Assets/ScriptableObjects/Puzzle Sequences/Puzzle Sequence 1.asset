@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorPalette: {fileID: 11400000, guid: 759ac91cdc5267043874798b5eef707f, type: 2}
   puzzles:
-  - {fileID: 11400000, guid: 82e84a82e336ce841a830f2e7565456b, type: 2}
-  - {fileID: 11400000, guid: d955f00aad034794493d9f2771f9bff1, type: 2}
+  - {fileID: 3899567199476189527, guid: 2c7cc72e5139dd843b91ee19237ee64d, type: 3}
+  - {fileID: 3899567199476189527, guid: 755d75aec29b9d9448be0c8f7b657e4d, type: 3}

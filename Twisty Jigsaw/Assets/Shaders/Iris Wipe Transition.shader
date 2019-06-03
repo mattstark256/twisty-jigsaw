@@ -1,4 +1,4 @@
-﻿Shader "Custom/Circle Wipe Transition"
+﻿Shader "Custom/Iris Wipe Transition"
 {
     Properties
     {

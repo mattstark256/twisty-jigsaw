@@ -10,9 +10,9 @@ public class WipeTransition : MonoBehaviour
     [SerializeField]
     private Image wipeImage;
     [SerializeField]
-    private Material circleWipe;
+    private Material irisWipe;
     [SerializeField]
-    private float circleWipeDuration = 1f;
+    private float irisWipeDuration = 1f;
     [SerializeField]
     private Material curtainWipe;
     [SerializeField]
@@ -35,21 +35,21 @@ public class WipeTransition : MonoBehaviour
     }
 
 
-    public void DoCircleWipe(Vector3 startPosition)
+    public void DoIrisWipe(Vector3 startPosition)
     {
         StopAllCoroutines();
 
         UpdateRenderTexture();
 
-        wipeImage.material = circleWipe;
+        wipeImage.material = irisWipe;
         wipeImage.material.SetTexture("_MainTex", renderTexture);
         wipeImage.material.SetVector("_WipeCenter", startPosition);
 
-        StartCoroutine(CircleWipeCoroutine());
+        StartCoroutine(IrisWipeCoroutine());
     }
 
 
-    private IEnumerator CircleWipeCoroutine()
+    private IEnumerator IrisWipeCoroutine()
     {
         wipeImage.enabled = true;
 
@@ -66,7 +66,7 @@ public class WipeTransition : MonoBehaviour
 
             yield return null;
 
-            f += Time.deltaTime / circleWipeDuration;
+            f += Time.deltaTime / irisWipeDuration;
             if (f > 1) f = 1;
         }
 

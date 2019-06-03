@@ -8,10 +8,12 @@ public class PulseCircle : MonoBehaviour
     [SerializeField]
     private float pulseDuration = 1;
     
+
     void Start()
     {
         StartCoroutine(PulseAnimation());
     }
+
 
     private IEnumerator PulseAnimation()
     {
@@ -30,6 +32,7 @@ public class PulseCircle : MonoBehaviour
 
         Destroy(gameObject);
     }
+
 
     public void SetColor(Color color)
     {

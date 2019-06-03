@@ -146,6 +146,5 @@ public class OverlapPuzzle : Puzzle
         }
 
         solved = true;
-        Debug.Log("puzzle solved");
     }
 }

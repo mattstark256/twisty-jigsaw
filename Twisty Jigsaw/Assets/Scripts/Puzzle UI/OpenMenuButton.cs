@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class OpenMenuButton : MonoBehaviour
 {
     [SerializeField]
-    private Text text;
-    [SerializeField]
-    private Image image;
+    private Image lines;
 
     private GameData gameData;
 
@@ -17,10 +15,9 @@ public class OpenMenuButton : MonoBehaviour
         gameData = _gameData;
     }
 
-    public void SetColors(Color foregroundColor, Color backgroundColor)
+    public void SetColor(Color color)
     {
-        text.color = backgroundColor;
-        image.color = foregroundColor;
+        lines.color = color;
     }
 
     public void OpenMenu()
