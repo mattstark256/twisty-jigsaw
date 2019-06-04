@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class SyncedRotatingPiece : RotatingPiece
 {
-    // This is used to prevent recursion when rotating all the synced pieces.
-    private bool spreadSuppressed = false;
+    private bool syncedPiecesCached = false;
+    private List<SyncedRotatingPiece> syncedPieces = new List<SyncedRotatingPiece>();
 
-
-    public void SuppressSpread()
+    
+    protected override void RotateIfNecessary()
     {
-        spreadSuppressed = true;
+        if (rotationsToDo == 0) return;
+        if (isBusy) return;
+        if (puzzle.IsSolved()) return;
+        if (!syncedPiecesCached) CacheSyncedPieces();
+        foreach (SyncedRotatingPiece piece in syncedPieces) { if (piece.IsBusy()) return; }
+
+        int sign = (int)Mathf.Sign(rotationsToDo);
+        StartRotateCoroutine(sign);
+        foreach (SyncedRotatingPiece piece in syncedPieces) { piece.StartRotateCoroutine(sign); }
+        rotationsToDo -= sign;
     }
 
 
-    public override void StartInteraction(Vector3 position)
+    private void CacheSyncedPieces()
     {
-        base.StartInteraction(position);
-
-        if (spreadSuppressed)
-        {
-            spreadSuppressed = false;
-            return;
-        }
-
         foreach (Piece piece in puzzle.GetPieces())
         {
             if (piece != this)
@@ -31,11 +32,11 @@ public class SyncedRotatingPiece : RotatingPiece
                 SyncedRotatingPiece syncedRotatingPiece = piece as SyncedRotatingPiece;
                 if (syncedRotatingPiece != null)
                 {
-                    syncedRotatingPiece.SuppressSpread();
-                    syncedRotatingPiece.StartInteraction(position);
+                    syncedPieces.Add(syncedRotatingPiece);
                 }
             }
         }
+        syncedPiecesCached = true;
     }
 
 

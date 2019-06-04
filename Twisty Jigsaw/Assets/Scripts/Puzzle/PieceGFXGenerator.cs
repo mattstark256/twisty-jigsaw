@@ -11,8 +11,7 @@ public class PieceGFXGenerator : MonoBehaviour
     [SerializeField]
     public GameObject pinPrefab;
 
-
-    public void GeneratePieceGFX(Color color)
+    public virtual void GeneratePieceGFX(Color color)
     {
         Piece piece = GetComponent<Piece>();
 

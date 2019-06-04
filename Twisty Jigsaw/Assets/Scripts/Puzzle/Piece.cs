@@ -16,43 +16,64 @@ public class Piece : MonoBehaviour
 
     private Vector2Int coOrds;
     public Vector2Int GetCoOrds() { return coOrds; }
+    public void SetCoOrds(Vector2Int _coOrds) { coOrds = _coOrds; }
 
     // Shape bounds represent the region occupied by the shape in local space
-    private Vector2Int shapeUpperBounds;
-    public Vector2Int GetShapeUpperBounds() { return shapeUpperBounds; }
-    private Vector2Int shapeLowerBounds;
-    public Vector2Int GetShapeLowerBounds() { return shapeLowerBounds; }
+    private bool shapeBoundsCached = false;
+    protected Vector2Int shapeLowerBounds;
+    public Vector2Int GetShapeLowerBounds() { if (!shapeBoundsCached) CalculateShapeBounds(); return shapeLowerBounds; }
+    protected Vector2Int shapeUpperBounds;
+    public Vector2Int GetShapeUpperBounds() { if (!shapeBoundsCached) CalculateShapeBounds(); return shapeUpperBounds; }
 
     // Movement bounds represent the region occupied by the shape in puzzle space when the piece can be moved or rotated
-    private Vector2Int movementUpperBounds;
-    public Vector2Int GetMovementUpperBounds() { return movementUpperBounds; }
-    private Vector2Int movementLowerBounds;
-    public Vector2Int GetMovementLowerBounds() { return movementLowerBounds; }
+    private bool movementBoundsCached = false;
+    protected Vector2Int movementLowerBounds;
+    public Vector2Int GetMovementLowerBounds() { if (!movementBoundsCached) CalculateMovementBounds(); return movementLowerBounds; }
+    protected Vector2Int movementUpperBounds;
+    public Vector2Int GetMovementUpperBounds() { if (!movementBoundsCached) CalculateMovementBounds(); return movementUpperBounds; }
 
     protected OverlapPuzzle puzzle;
 
     protected bool isBusy;
     public bool IsBusy() { return isBusy; }
+    public void SetBusy(bool _isBusy) { isBusy = _isBusy; }
 
 
 
     private void Awake()
     {
         coOrds = Vector2Int.RoundToInt(transform.localPosition);
+        puzzle = GetComponentInParent<OverlapPuzzle>();
+    }
 
-        shapeUpperBounds = new Vector2Int(int.MinValue, int.MinValue);
-        shapeLowerBounds = new Vector2Int(int.MaxValue, int.MaxValue);
-        int maxRadius = 0;
-        foreach (Vector2Int tile in occupiedTiles)
+
+    protected virtual void CalculateShapeBounds()
+    {
+        if (occupiedTiles.Count > 0) // If there are no tiles the default value (Vector2Int.zero) is used. 
         {
-            shapeUpperBounds = Vector2Int.Max(shapeUpperBounds, tile);
-            shapeLowerBounds = Vector2Int.Min(shapeLowerBounds, tile);
-            maxRadius = Mathf.Max(Mathf.Abs(tile.x), Mathf.Abs(tile.y), maxRadius);
+            shapeLowerBounds = new Vector2Int(int.MaxValue, int.MaxValue);
+            shapeUpperBounds = new Vector2Int(int.MinValue, int.MinValue);
+            foreach (Vector2Int tile in occupiedTiles)
+            {
+                shapeLowerBounds = Vector2Int.Min(shapeLowerBounds, tile);
+                shapeUpperBounds = Vector2Int.Max(shapeUpperBounds, tile);
+            }
         }
+        shapeBoundsCached = true;
+    }
+
+
+    protected virtual void CalculateMovementBounds()
+    {
+        if (!shapeBoundsCached) CalculateShapeBounds();
+        int maxRadius = Mathf.Max(
+            Mathf.Abs(shapeLowerBounds.x),
+            Mathf.Abs(shapeLowerBounds.y),
+            Mathf.Abs(shapeUpperBounds.x),
+            Mathf.Abs(shapeUpperBounds.y));
         movementUpperBounds = Vector2Int.one * maxRadius;
         movementLowerBounds = movementUpperBounds * -1;
-
-        puzzle = GetComponentInParent<OverlapPuzzle>();
+        movementBoundsCached = true;
     }
 
 
@@ -63,7 +84,7 @@ public class Piece : MonoBehaviour
 
 
     public bool GetTileOccupied(Vector2Int tile)
-    {   
+    {
         return (occupiedTiles.Contains(tile));
     }
 
@@ -121,7 +142,7 @@ public class Piece : MonoBehaviour
     }
 
 
-    // This could be used for testing purposes later on
+    // This might be useful for testing purposes later on
     //// In certain cases (such as when using Undo) duplicates can exist in occupiedTiles. This checks for duplicates and removes any it finds.
     //public void RemoveDuplicateTiles()
     //{

@@ -4,17 +4,37 @@ using UnityEngine;
 
 public class RotatingPiece : Piece
 {
-    private int rotationsToDo = 0;
+    protected int rotationsToDo = 0;
+    protected const float rotationDuration = 0.25f;
+
+
+    private void Update()
+    {
+        RotateIfNecessary();
+    }
 
 
     public override void StartInteraction(Vector3 position)
     {
         rotationsToDo--;
-        if (!isBusy) { StartCoroutine(RotateCoroutine(-1)); }
+        RotateIfNecessary();
     }
 
 
-    private IEnumerator RotateCoroutine(int sign)
+    protected virtual void RotateIfNecessary()
+    {
+        if (rotationsToDo == 0) return;
+        if (isBusy) return;
+        if (puzzle.IsSolved()) return;
+
+        int sign = (int)Mathf.Sign(rotationsToDo);
+        StartRotateCoroutine(sign);
+        rotationsToDo -= sign;
+    }
+
+
+    public void StartRotateCoroutine(int sign) { StartCoroutine(RotateCoroutine(sign)); }
+    protected virtual IEnumerator RotateCoroutine(int sign)
     {
         ModifyOverlaps(-1);
         if (sign == 1) RotateTilesCCW(); else RotateTilesCW();
@@ -27,7 +47,7 @@ public class RotatingPiece : Piece
         float f = 0;
         while (f < 1)
         {
-            f += Time.deltaTime / 0.25f;
+            f += Time.deltaTime / rotationDuration;
             if (f > 1) f = 1;
 
             float smoothedF = Mathf.SmoothStep(0, 1, f);
@@ -39,14 +59,6 @@ public class RotatingPiece : Piece
         isBusy = false;
 
         puzzle.CheckIfSolved();
-        if (puzzle.IsSolved())
-        {
-            rotationsToDo = 0;
-        }
-        else
-        {
-            rotationsToDo -= sign;
-            if (rotationsToDo != 0) { StartCoroutine(RotateCoroutine((int)Mathf.Sign(rotationsToDo))); }
-        }
+        RotateIfNecessary();
     }
 }

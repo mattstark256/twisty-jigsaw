@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f04342d29ac2a48b15b2cb8240dbf1, type: 3}
   m_Name: Palette 3
   m_EditorClassIdentifier: 
-  foregroundColor: {r: 0.67058825, g: 0, b: 0.27508146, a: 1}
-  backgroundColor: {r: 0.75671947, g: 0.83887357, b: 0.8962264, a: 1}
+  foregroundColor: {r: 0.6, g: 0.12, b: 0.36, a: 1}
+  backgroundColor: {r: 0.7019608, g: 1, b: 0.9006536, a: 1}

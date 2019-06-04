@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class OverlapPuzzle : Puzzle
 {
-    //[SerializeField]
-    //private SpriteSet spriteSet;
     [SerializeField]
     private Cross crossPrefab;
 
@@ -48,7 +46,6 @@ public class OverlapPuzzle : Puzzle
         }
 
         //// Generate the piece GFX
-        //PieceGFXGenerator pieceGFXGenerator = GetComponent<PieceGFXGenerator>();
         foreach (PieceGFXGenerator gfx in GetComponentsInChildren<PieceGFXGenerator>())
         {
             gfx.GeneratePieceGFX(color);
