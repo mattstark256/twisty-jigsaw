@@ -14,7 +14,7 @@ public class FramerateCounter : MonoBehaviour
     [SerializeField]
     private int averageSample = 10;
 
-    bool visible = false;
+    bool enabled = false;
     private Text framerateText;
     
     private List<float> framerates = new List<float>();
@@ -22,7 +22,7 @@ public class FramerateCounter : MonoBehaviour
 
     private void Update()
     {
-        if (visible)
+        if (enabled)
         {
             float framerate = 1f / Time.deltaTime;
             framerates.Add(framerate);
@@ -34,22 +34,22 @@ public class FramerateCounter : MonoBehaviour
     }
 
 
-    public void SetVisible(bool _visible)
+    public void SetEnabled(bool _enabled)
     {
-        if (visible)
+        if (enabled)
         {
-            if (!_visible) { Destroy(framerateText.gameObject); }
+            if (!_enabled) { Destroy(framerateText.gameObject); }
         }
         else
         {
-            if (_visible) { framerateText = Instantiate(framerateTextPrefab, framerateParent); }
+            if (_enabled) { framerateText = Instantiate(framerateTextPrefab, framerateParent); }
         }
-        visible = _visible;
+        enabled = _enabled;
     }
 
 
-    public bool GetVisible()
+    public bool GetEnabled()
     {
-        return visible;
+        return enabled;
     }
 }

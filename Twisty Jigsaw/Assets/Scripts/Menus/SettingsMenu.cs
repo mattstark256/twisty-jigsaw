@@ -11,7 +11,7 @@ public class SettingsMenu : MenuScreen
 
     private void Start()
     {
-        FPStoggle.isOn = gameData.GetFramerateCounter().GetVisible();
+        FPStoggle.isOn = gameData.GetFramerateCounter().GetEnabled();
     }
 
 
@@ -35,6 +35,6 @@ public class SettingsMenu : MenuScreen
 
     public void ToggleFramerateCounter()
     {
-        gameData.GetFramerateCounter().SetVisible(FPStoggle.isOn);
+        gameData.GetFramerateCounter().SetEnabled(FPStoggle.isOn);
     }
 }

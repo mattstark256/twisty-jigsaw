@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f167a3bccba1944b9056c8dccf748d, type: 3}
+  m_Name: Puzzle Sequence 4
+  m_EditorClassIdentifier: 
+  colorPalette: {fileID: 11400000, guid: cd219b1ba610dcd4eb8ce3acca7150ec, type: 2}
+  puzzles:
+  - {fileID: 6803409507118578854, guid: f9515fc6a615a5840bfa616b2639d6b5, type: 3}
