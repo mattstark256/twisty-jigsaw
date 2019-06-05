@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7232582095689980887
+--- !u!1 &8049126362195655769
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,59 +8,63 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 328306391813713117}
-  - component: {fileID: 393424665658476089}
-  - component: {fileID: 2968012015459402315}
+  - component: {fileID: 1104191901891479468}
+  - component: {fileID: 4090609043033911631}
+  - component: {fileID: 685706159726564463}
   m_Layer: 0
-  m_Name: Spider Piece
+  m_Name: Sliding Piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &328306391813713117
+--- !u!4 &1104191901891479468
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7232582095689980887}
+  m_GameObject: {fileID: 8049126362195655769}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: -2, z: 0}
+  m_LocalPosition: {x: 2, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &393424665658476089
+--- !u!114 &4090609043033911631
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7232582095689980887}
+  m_GameObject: {fileID: 8049126362195655769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b721d3eebcb97d42b303d0f354e31be, type: 3}
+  m_Script: {fileID: 11500000, guid: 9433ab273dddaac4c8901f218872fc00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   occupiedTiles: []
   editorColor: {r: 1, g: 0, b: 1, a: 1}
-  connectedPieces: []
---- !u!114 &2968012015459402315
+  railStart: {x: 1, y: 0, z: 0}
+  railEnd: {x: 0, y: 0, z: 0}
+--- !u!114 &685706159726564463
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7232582095689980887}
+  m_GameObject: {fileID: 8049126362195655769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28b5bcf009e3f164094924a7ad13ae36, type: 3}
+  m_Script: {fileID: 11500000, guid: e8e0c4d632209944fbdbc5b3948de15c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tileset: {fileID: 11400000, guid: 4ced0c2977adb0b49abbc364d4f47fba, type: 2}
-  pinPrefab: {fileID: 2256970631779220829, guid: a60c11bc11cb4904d9a6216db04df38f,
+  pinPrefab: {fileID: 0}
+  railPrefab: {fileID: 2256970631779220829, guid: 3e543f028d67dcc408ee3c97516623cd,
     type: 3}
-  spiderArmPrefab: {fileID: 2256970631779220829, guid: 583f8c321b6736045930f13acf92dca8,
+  railEndPrefab: {fileID: 2256970631779220829, guid: beb34e758c1e5ec4f871a3e24108e65f,
+    type: 3}
+  handlePrefab: {fileID: 2256970631779220829, guid: 712501ab6e0ed1044862919672df70cc,
     type: 3}

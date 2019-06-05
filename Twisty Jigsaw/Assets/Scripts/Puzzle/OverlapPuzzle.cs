@@ -19,6 +19,8 @@ public class OverlapPuzzle : Puzzle
 
     private Cross[,] crosses;
 
+    private Piece selectedPiece;
+
 
     public override void Initialize(Color color)
     {
@@ -45,7 +47,7 @@ public class OverlapPuzzle : Puzzle
             piece.ModifyOverlaps(1);
         }
 
-        //// Generate the piece GFX
+        // Generate the piece GFX
         foreach (PieceGFXGenerator gfx in GetComponentsInChildren<PieceGFXGenerator>())
         {
             gfx.GeneratePieceGFX(color);
@@ -98,9 +100,34 @@ public class OverlapPuzzle : Puzzle
         }
         if (closestPiece != null && shortestDistance < clickRadius)
         {
-            closestPiece.StartInteraction(localPosition);
+            selectedPiece = closestPiece;
+            selectedPiece.StartInteraction(localPosition);
         }
     }
+
+
+    public override void ContinueInteraction(Vector3 position)
+    {
+        base.ContinueInteraction(position);
+        
+        if (selectedPiece != null)
+        {
+            selectedPiece.ContinueInteraction(transform.InverseTransformPoint(position));
+        }
+    }
+
+
+    public override void EndInteraction()
+    {
+        base.EndInteraction();
+
+        if (selectedPiece != null)
+        {
+            selectedPiece.EndInteraction();
+            selectedPiece = null;
+        }
+    }
+
 
 
     // Change a value of the overlaps array. The coOrds are in the puzzle's local space.

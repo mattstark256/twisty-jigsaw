@@ -7,7 +7,7 @@ using UnityEngine;
 public class PieceGFXGenerator : MonoBehaviour
 {
     [SerializeField]
-    private Tileset spriteSet;
+    private Tileset tileset;
     [SerializeField]
     public GameObject pinPrefab;
 
@@ -16,10 +16,13 @@ public class PieceGFXGenerator : MonoBehaviour
         Piece piece = GetComponent<Piece>();
 
         // Generate the pin at the center of a piece
-        GameObject pin = Instantiate(pinPrefab);
-        pin.transform.parent = piece.transform;
-        pin.transform.localPosition = Vector3.zero;
-        pin.GetComponent<SpriteRenderer>().color = color;
+        if (pinPrefab != null)
+        {
+            GameObject pin = Instantiate(pinPrefab);
+            pin.transform.parent = piece.transform;
+            pin.transform.localPosition = Vector3.zero;
+            pin.GetComponent<SpriteRenderer>().color = color;
+        }
 
 
         // Generate the sections that make up the piece
@@ -49,63 +52,63 @@ public class PieceGFXGenerator : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        section = Instantiate(spriteSet.sectionConvexPrefab);
+                        section = Instantiate(tileset.sectionConvexPrefab);
                         sectionAngle = 0;
                         break;
                     case 2:
-                        section = Instantiate(spriteSet.sectionConvexPrefab);
+                        section = Instantiate(tileset.sectionConvexPrefab);
                         sectionAngle = 270;
                         break;
                     case 3:
-                        section = Instantiate(spriteSet.sectionStraightPrefab);
+                        section = Instantiate(tileset.sectionStraightPrefab);
                         sectionAngle = 270;
                         break;
                     case 4:
-                        section = Instantiate(spriteSet.sectionConvexPrefab);
+                        section = Instantiate(tileset.sectionConvexPrefab);
                         sectionAngle = 90;
                         break;
                     case 5:
-                        section = Instantiate(spriteSet.sectionStraightPrefab);
+                        section = Instantiate(tileset.sectionStraightPrefab);
                         sectionAngle = 0;
                         break;
                     case 6:
-                        section = Instantiate(spriteSet.sectionDiagonalPrefab);
+                        section = Instantiate(tileset.sectionDiagonalPrefab);
                         sectionAngle = 90;
                         break;
                     case 7:
-                        section = Instantiate(spriteSet.sectionConcavePrefab);
+                        section = Instantiate(tileset.sectionConcavePrefab);
                         sectionAngle = 0;
                         break;
                     case 8:
-                        section = Instantiate(spriteSet.sectionConvexPrefab);
+                        section = Instantiate(tileset.sectionConvexPrefab);
                         sectionAngle = 180;
                         break;
                     case 9:
-                        section = Instantiate(spriteSet.sectionDiagonalPrefab);
+                        section = Instantiate(tileset.sectionDiagonalPrefab);
                         sectionAngle = 0;
                         break;
                     case 10:
-                        section = Instantiate(spriteSet.sectionStraightPrefab);
+                        section = Instantiate(tileset.sectionStraightPrefab);
                         sectionAngle = 180;
                         break;
                     case 11:
-                        section = Instantiate(spriteSet.sectionConcavePrefab);
+                        section = Instantiate(tileset.sectionConcavePrefab);
                         sectionAngle = 270;
                         break;
                     case 12:
-                        section = Instantiate(spriteSet.sectionStraightPrefab);
+                        section = Instantiate(tileset.sectionStraightPrefab);
                         sectionAngle = 90;
                         break;
                     case 13:
-                        section = Instantiate(spriteSet.sectionConcavePrefab);
+                        section = Instantiate(tileset.sectionConcavePrefab);
                         sectionAngle = 90;
                         break;
                     case 14:
-                        section = Instantiate(spriteSet.sectionConcavePrefab);
+                        section = Instantiate(tileset.sectionConcavePrefab);
                         sectionAngle = 180;
                         break;
                     default:
-                        section = Instantiate(spriteSet.sectionSolidPrefab);
+                        section = Instantiate(tileset.sectionSolidPrefab);
                         sectionAngle = 0;
                         break;
                 }

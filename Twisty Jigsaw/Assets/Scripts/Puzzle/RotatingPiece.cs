@@ -14,6 +14,20 @@ public class RotatingPiece : Piece
     }
 
 
+    protected override void CalculateMovementBounds()
+    {
+        if (!shapeBoundsCached) CalculateShapeBounds();
+        int maxRadius = Mathf.Max(
+            Mathf.Abs(shapeLowerBounds.x),
+            Mathf.Abs(shapeLowerBounds.y),
+            Mathf.Abs(shapeUpperBounds.x),
+            Mathf.Abs(shapeUpperBounds.y));
+        movementUpperBounds = Vector2Int.one * maxRadius;
+        movementLowerBounds = movementUpperBounds * -1;
+        movementBoundsCached = true;
+    }
+
+
     public override void StartInteraction(Vector3 position)
     {
         rotationsToDo--;

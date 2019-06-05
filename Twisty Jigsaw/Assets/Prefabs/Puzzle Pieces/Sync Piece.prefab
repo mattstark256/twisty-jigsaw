@@ -58,6 +58,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad7ca25dbc0a5e040ba18ba1349d9cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteSet: {fileID: 11400000, guid: 4ced0c2977adb0b49abbc364d4f47fba, type: 2}
+  tileset: {fileID: 11400000, guid: 4ced0c2977adb0b49abbc364d4f47fba, type: 2}
   pinPrefab: {fileID: 2256970631779220829, guid: 65527eda9cae6984896f233864a90dd2,
     type: 3}

@@ -19,14 +19,14 @@ public class Piece : MonoBehaviour
     public void SetCoOrds(Vector2Int _coOrds) { coOrds = _coOrds; }
 
     // Shape bounds represent the region occupied by the shape in local space
-    private bool shapeBoundsCached = false;
+    protected bool shapeBoundsCached = false;
     protected Vector2Int shapeLowerBounds;
     public Vector2Int GetShapeLowerBounds() { if (!shapeBoundsCached) CalculateShapeBounds(); return shapeLowerBounds; }
     protected Vector2Int shapeUpperBounds;
     public Vector2Int GetShapeUpperBounds() { if (!shapeBoundsCached) CalculateShapeBounds(); return shapeUpperBounds; }
 
     // Movement bounds represent the region occupied by the shape in puzzle space when the piece can be moved or rotated
-    private bool movementBoundsCached = false;
+    protected bool movementBoundsCached = false;
     protected Vector2Int movementLowerBounds;
     public Vector2Int GetMovementLowerBounds() { if (!movementBoundsCached) CalculateMovementBounds(); return movementLowerBounds; }
     protected Vector2Int movementUpperBounds;
@@ -40,7 +40,7 @@ public class Piece : MonoBehaviour
 
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         coOrds = Vector2Int.RoundToInt(transform.localPosition);
         puzzle = GetComponentInParent<OverlapPuzzle>();
@@ -66,13 +66,8 @@ public class Piece : MonoBehaviour
     protected virtual void CalculateMovementBounds()
     {
         if (!shapeBoundsCached) CalculateShapeBounds();
-        int maxRadius = Mathf.Max(
-            Mathf.Abs(shapeLowerBounds.x),
-            Mathf.Abs(shapeLowerBounds.y),
-            Mathf.Abs(shapeUpperBounds.x),
-            Mathf.Abs(shapeUpperBounds.y));
-        movementUpperBounds = Vector2Int.one * maxRadius;
-        movementLowerBounds = movementUpperBounds * -1;
+        movementLowerBounds = shapeLowerBounds;
+        movementUpperBounds = shapeUpperBounds;
         movementBoundsCached = true;
     }
 
@@ -126,6 +121,16 @@ public class Piece : MonoBehaviour
 
 
     public virtual void StartInteraction(Vector3 position)
+    {
+    }
+
+
+    public virtual void ContinueInteraction(Vector3 position)
+    {
+    }
+
+
+    public virtual void EndInteraction()
     {
     }
 
