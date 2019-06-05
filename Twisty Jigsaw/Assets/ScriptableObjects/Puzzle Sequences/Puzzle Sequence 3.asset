@@ -16,4 +16,3 @@ MonoBehaviour:
   puzzles:
   - {fileID: 6803409507118578854, guid: 19dbcdc20729729439d1a27f365afbe6, type: 3}
   - {fileID: 6803409507118578854, guid: f9515fc6a615a5840bfa616b2639d6b5, type: 3}
-  - {fileID: 3899567199476189527, guid: d943754a18715a84b9f9fa6cc9a1a538, type: 3}

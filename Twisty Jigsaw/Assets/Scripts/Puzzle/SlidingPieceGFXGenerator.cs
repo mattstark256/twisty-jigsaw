@@ -26,7 +26,7 @@ public class SlidingPieceGFXGenerator : PieceGFXGenerator
         GameObject rail = Instantiate(railPrefab, slidingPiece.transform.parent);
         rail.transform.localPosition = slidingPiece.GetRailStart() + railVector / 2;
         rail.transform.localRotation = railRotation;
-        rail.transform.localScale = new Vector3(1, railVector.magnitude, 1);
+        rail.transform.localScale = new Vector3(1, railVector.magnitude * 2, 1);
         rail.GetComponent<SpriteRenderer>().color = color;
 
         GameObject railEnd1 = Instantiate(railEndPrefab, slidingPiece.transform.parent);

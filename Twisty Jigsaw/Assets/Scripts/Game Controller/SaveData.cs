@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+[RequireComponent(typeof(GameData))]
 public class SaveData : MonoBehaviour
 {
-    private void Update()
+    private GameData gameData;
+
+
+    private void Awake()
     {
-        // For testing
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            EraseSaveData();
-        }
+        gameData = GetComponent<GameData>();
     }
 
 
@@ -58,5 +58,11 @@ public class SaveData : MonoBehaviour
     public int GetPuzzlesCompleted()
     {
         return PlayerPrefs.GetInt("Puzzles completed");
+    }
+
+
+    public void UnlockAll()
+    {
+        PlayerPrefs.SetInt("Sequences completed", gameData.GetSequenceSequence().GetSequenceCount());
     }
 }

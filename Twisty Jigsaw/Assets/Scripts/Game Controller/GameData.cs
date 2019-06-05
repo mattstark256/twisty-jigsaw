@@ -8,8 +8,8 @@ using UnityEngine.UI;
 // This class handles the main order of execution
 
 
-[RequireComponent(typeof(CameraController), typeof(PuzzleInput), typeof(WipeTransition))]
-[RequireComponent(typeof(PuzzleManager), typeof(MenuManager), typeof(SaveData))]
+[RequireComponent(typeof(CameraController), typeof(WipeTransition), typeof(PuzzleManager))]
+[RequireComponent(typeof(MenuManager), typeof(SaveData), typeof(FramerateCounter))]
 public class GameData : MonoBehaviour
 {
     [SerializeField]
@@ -26,6 +26,8 @@ public class GameData : MonoBehaviour
     public MenuManager GetMenuManager() { return menuManager; }
     private SaveData saveData;
     public SaveData GetSaveData() { return saveData; }
+    private FramerateCounter framerateCounter;
+    public FramerateCounter GetFramerateCounter() { return framerateCounter; }
 
 
     private void Awake()
@@ -35,5 +37,6 @@ public class GameData : MonoBehaviour
         puzzleManager = GetComponent<PuzzleManager>();
         menuManager = GetComponent<MenuManager>();
         saveData = GetComponent<SaveData>();
+        framerateCounter = GetComponent<FramerateCounter>();
     }
 }

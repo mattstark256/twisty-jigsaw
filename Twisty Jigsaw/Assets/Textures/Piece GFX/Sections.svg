@@ -16,7 +16,7 @@
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="Sections.svg"
-   inkscape:export-filename="C:\Users\Matt\Documents\misc\unity\practice excercises\twisty-jigsaw\Twisty Jigsaw\Assets\Textures\Piece GFX\Pin Spider.png"
+   inkscape:export-filename="C:\Users\Matt\Documents\misc\unity\practice excercises\twisty-jigsaw\Twisty Jigsaw\Assets\Textures\Piece GFX\Rail End.png"
    inkscape:export-xdpi="96.000008"
    inkscape:export-ydpi="96.000008">
   <defs
@@ -28,11 +28,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.3203127"
-     inkscape:cx="104.88288"
-     inkscape:cy="130.87605"
+     inkscape:zoom="1.6601564"
+     inkscape:cx="-25.098222"
+     inkscape:cy="51.037035"
      inkscape:document-units="px"
-     inkscape:current-layer="layer7"
+     inkscape:current-layer="layer5"
      showgrid="false"
      units="px"
      showguides="true"
@@ -276,6 +276,42 @@
        inkscape:export-ydpi="96.000008" />
   </g>
   <g
+     style="display:none"
+     inkscape:label="Rail"
+     id="g860"
+     inkscape:groupmode="layer">
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:4.23333311;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 39.158333,0 V 67.733332 Z M 28.575,0 v 67.733332 z"
+       id="path856"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="g887"
+     inkscape:label="Rail End"
+     style="display:none">
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#fefefe;stroke-width:4.23333311;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 28.575002,33.866669 c 0,-2.922507 2.36916,-5.291667 5.291667,-5.291667 2.922507,0 5.291666,2.36916 5.291666,5.291667"
+       id="path889"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer8"
+     inkscape:label="Rail Handle"
+     style="display:none">
+    <path
+       style="fill:none;stroke:#fefefe;stroke-width:18.52083397;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 22.489583,33.866666 H 45.24375"
+       id="path883"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+  </g>
+  <g
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Solid"
@@ -319,9 +355,10 @@
   <g
      inkscape:groupmode="layer"
      id="layer7"
-     inkscape:label="Spider">
+     inkscape:label="Spider"
+     style="display:none">
     <circle
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:9.52500002;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:9.52499962;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path864"
        cx="33.866665"
        cy="33.866665"
