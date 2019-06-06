@@ -15,3 +15,8 @@ MonoBehaviour:
   colorPalette: {fileID: 11400000, guid: cd219b1ba610dcd4eb8ce3acca7150ec, type: 2}
   puzzles:
   - {fileID: 6803409507118578854, guid: f9515fc6a615a5840bfa616b2639d6b5, type: 3}
+  - {fileID: 6803409507118578854, guid: bcc4df622c82d274282030a2ccd2f276, type: 3}
+  - {fileID: 6803409507118578854, guid: c8f8e3e4e2533d54ca60bd3ac4062226, type: 3}
+  - {fileID: 6803409507118578854, guid: 3fe20be738a2f3d478a4c32d8772eb53, type: 3}
+  - {fileID: 6803409507118578854, guid: 5346ce71361185d4ea74d435e7778e07, type: 3}
+  - {fileID: 6803409507118578854, guid: bd7345751b6f93740aa241d421cee901, type: 3}
