@@ -19,7 +19,7 @@ public class PuzzleManager : MonoBehaviour
     [SerializeField]
     private Text puzzleNumberTextPrefab;
     [SerializeField]
-    private Text solvedTextPrefab;
+    private SolvedUI solvedUIPrefab;
     [SerializeField]
     private Text continueTextPrefab;
     [SerializeField]
@@ -38,7 +38,7 @@ public class PuzzleManager : MonoBehaviour
     private Puzzle currentPuzzle = null;
 
     private Text puzzleNumberText;
-    private Text solvedText;
+    private SolvedUI solvedUI;
     private Text continueText;
     private Text tutorialText;
     private Text sequenceCompleteText;
@@ -47,6 +47,12 @@ public class PuzzleManager : MonoBehaviour
 
     private PuzzleState puzzleState = PuzzleState.notLoaded;
     public PuzzleState GetPuzzleState() { return puzzleState; }
+
+    // The length of time since the current puzzle state began
+    private float stateTimer = 0;
+    // The minimum state time is used to prevent the player accidentally skipping a state by tapping the instant it starts
+    private static float minStateTime = 0.3f;
+
 
 
     private void Awake()
@@ -62,6 +68,8 @@ public class PuzzleManager : MonoBehaviour
     private void Update()
     {
         puzzleInput.HandleInput();
+
+        stateTimer += Time.deltaTime;
 
         switch (puzzleState)
         {
@@ -85,8 +93,7 @@ public class PuzzleManager : MonoBehaviour
                 if (currentPuzzle.IsSolved())
                 {
                     // Show "Solved" text
-                    solvedText = Instantiate(solvedTextPrefab, puzzleUIParent);
-                    continueText = Instantiate(continueTextPrefab, puzzleUIParent);
+                    solvedUI = Instantiate(solvedUIPrefab, puzzleUIParent);
                     UpdateColors(sequenceIndex, puzzleIndex);
 
                     // Save any progress
@@ -96,12 +103,13 @@ public class PuzzleManager : MonoBehaviour
                     { gameData.GetSaveData().PuzzleCompleted(puzzleIndex); }
 
                     puzzleState = PuzzleState.solved;
+                    stateTimer = 0;
                 }
                 break;
 
 
             case PuzzleState.solved:
-                if (puzzleInput.GetPointerPressState() == PressState.pressed)
+                if (stateTimer > minStateTime && puzzleInput.GetPointerPressState() == PressState.pressed)
                 {
                     gameData.GetWipeTransition().DoIrisWipe(puzzleInput.GetPointerScreenPosition());
                     if (gameData.GetSequenceSequence().GetSequence(sequenceIndex).IsLastPuzzle(puzzleIndex))
@@ -120,7 +128,7 @@ public class PuzzleManager : MonoBehaviour
 
 
             case PuzzleState.sequenceComplete:
-                if (puzzleInput.GetPointerPressState() == PressState.pressed)
+                if (stateTimer > minStateTime && puzzleInput.GetPointerPressState() == PressState.pressed)
                 {
                     gameData.GetWipeTransition().DoIrisWipe(puzzleInput.GetPointerScreenPosition());
                     LoadPuzzle(sequenceIndex + 1, 0);
@@ -129,10 +137,11 @@ public class PuzzleManager : MonoBehaviour
 
 
             case PuzzleState.gameComplete:
-                if (puzzleInput.GetPointerPressState() == PressState.pressed)
+                if (stateTimer > minStateTime && puzzleInput.GetPointerPressState() == PressState.pressed)
                 {
                     DestroyObjects();
                     puzzleState = PuzzleState.notLoaded;
+                    stateTimer = 0;
                     gameData.GetMenuManager().OpenMainMenu();
                 }
                 break;
@@ -162,6 +171,7 @@ public class PuzzleManager : MonoBehaviour
         UpdateColors(sequenceIndex, puzzleIndex);
 
         puzzleState = PuzzleState.unsolved;
+        stateTimer = 0;
     }
 
 
@@ -176,6 +186,7 @@ public class PuzzleManager : MonoBehaviour
         UpdateColors(sequenceIndex, puzzleIndex + 1);
 
         puzzleState = PuzzleState.sequenceComplete;
+        stateTimer = 0;
     }
 
 
@@ -189,6 +200,7 @@ public class PuzzleManager : MonoBehaviour
         UpdateColors(sequenceIndex, puzzleIndex + 1);
 
         puzzleState = PuzzleState.gameComplete;
+        stateTimer = 0;
     }
 
 
@@ -205,7 +217,7 @@ public class PuzzleManager : MonoBehaviour
     {
         if (currentPuzzle != null) { Destroy(currentPuzzle.gameObject); }
         if (puzzleNumberText != null) { Destroy(puzzleNumberText.gameObject); }
-        if (solvedText != null) { Destroy(solvedText.gameObject); }
+        if (solvedUI != null) { Destroy(solvedUI.gameObject); }
         if (continueText != null) { Destroy(continueText.gameObject); }
         if (tutorialText != null) { Destroy(tutorialText.gameObject); }
         if (sequenceCompleteText != null) { Destroy(sequenceCompleteText.gameObject); }
@@ -221,7 +233,7 @@ public class PuzzleManager : MonoBehaviour
 
         openMenuButton.SetColor(foregroundColor);
         if (puzzleNumberText != null) { puzzleNumberText.color = foregroundColor; }
-        if (solvedText != null) { solvedText.color = foregroundColor; }
+        if (solvedUI != null) { solvedUI.SetColor(foregroundColor); }
         if (continueText != null) { continueText.color = foregroundColor; }
         if (tutorialText != null) { tutorialText.color = foregroundColor; }
         if (sequenceCompleteText != null) { sequenceCompleteText.color = foregroundColor; }
