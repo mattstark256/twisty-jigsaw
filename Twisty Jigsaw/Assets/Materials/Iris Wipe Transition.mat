@@ -76,9 +76,9 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WipeAmount: 0.9952468
+    - _WipeAmount: 0.994438
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _WipeCenter: {r: 673.0841, g: 939.0654, b: 0, a: 0}
+    - _WipeCenter: {r: 426.92307, g: 729.2308, b: 0, a: 0}
