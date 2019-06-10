@@ -8,8 +8,16 @@ using UnityEngine.UI;
 // This class handles the main order of execution
 
 
-[RequireComponent(typeof(CameraController), typeof(WipeTransition), typeof(PuzzleManager))]
-[RequireComponent(typeof(MenuManager), typeof(SaveData), typeof(FramerateCounter))]
+[RequireComponent(
+    typeof(CameraController),
+    typeof(WipeTransition),
+    typeof(PuzzleManager))]
+[RequireComponent(
+    typeof(MenuManager),
+    typeof(SaveData),
+    typeof(FramerateCounter))]
+[RequireComponent(
+    typeof(SoundEffectManager))]
 public class GameData : MonoBehaviour
 {
     [SerializeField]
@@ -28,6 +36,8 @@ public class GameData : MonoBehaviour
     public SaveData GetSaveData() { return saveData; }
     private FramerateCounter framerateCounter;
     public FramerateCounter GetFramerateCounter() { return framerateCounter; }
+    private SoundEffectManager soundEffectManager;
+    public SoundEffectManager GetSoundEffectManager() { return soundEffectManager; }
 
 
     private void Awake()
@@ -38,5 +48,6 @@ public class GameData : MonoBehaviour
         menuManager = GetComponent<MenuManager>();
         saveData = GetComponent<SaveData>();
         framerateCounter = GetComponent<FramerateCounter>();
+        soundEffectManager = GetComponent<SoundEffectManager>();
     }
 }

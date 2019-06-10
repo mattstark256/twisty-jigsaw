@@ -22,9 +22,9 @@ public class OverlapPuzzle : Puzzle
     private Piece selectedPiece;
 
 
-    public override void Initialize(Color color)
+    public override void Initialize(GameData _gameData, Color color)
     {
-        base.Initialize(color);
+        base.Initialize(_gameData, color);
 
         // Find all the pieces
         pieces = GetComponentsInChildren<Piece>();
@@ -102,6 +102,8 @@ public class OverlapPuzzle : Puzzle
         {
             selectedPiece = closestPiece;
             selectedPiece.StartInteraction(localPosition);
+
+            //gameData.GetSoundEffectManager().PlayEffect("Test");
         }
     }
 

@@ -12,12 +12,16 @@ public class Puzzle : MonoBehaviour
     private string tutorialText;
     public string GetTutorialText() { return tutorialText; }
 
+    protected GameData gameData;
 
     protected bool solved = false;
     public bool IsSolved() { return solved; }
 
 
-    public virtual void Initialize(Color color) { }
+    public virtual void Initialize(GameData _gameData, Color color)
+    {
+        gameData = _gameData;
+    }
 
 
     public virtual void StartInteraction(Vector3 position) { }

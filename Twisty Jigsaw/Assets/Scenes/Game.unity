@@ -639,6 +639,8 @@ GameObject:
   - component: {fileID: 1895780647}
   - component: {fileID: 1895780648}
   - component: {fileID: 1895780649}
+  - component: {fileID: 1895780651}
+  - component: {fileID: 1895780650}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -807,3 +809,34 @@ MonoBehaviour:
     type: 3}
   framerateParent: {fileID: 670362705}
   averageSample: 100
+--- !u!114 &1895780650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895780639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30569bb7c497c1544946b889e7cb0665, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultEffectsVolume: 0.7
+--- !u!114 &1895780651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895780639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f03ec63097a544fbbe59a281f4414c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effects:
+  - name: Test
+    filePath: Android Native Audio/Tone Native.wav
+    volume: 0.5
+    audioClip: {fileID: 0}
+    fileID: 0

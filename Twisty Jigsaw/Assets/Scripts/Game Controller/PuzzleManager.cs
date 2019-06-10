@@ -160,7 +160,7 @@ public class PuzzleManager : MonoBehaviour
         puzzleNumberText.text = (sequenceIndex + 1) + " - " + (puzzleIndex + 1);
         
         currentPuzzle = Instantiate(gameData.GetSequenceSequence().GetSequence(sequenceIndex).GetPuzzle(puzzleIndex));
-        currentPuzzle.Initialize(gameData.GetSequenceSequence().GetSequence(sequenceIndex).GetColor(0, puzzleIndex));
+        currentPuzzle.Initialize(gameData, gameData.GetSequenceSequence().GetSequence(sequenceIndex).GetColor(0, puzzleIndex));
 
         if (currentPuzzle.GetTutorialText() != "")
         {
