@@ -7,11 +7,19 @@ using UnityEngine.UI;
 public class SettingsMenu : MenuScreen
 {
     [SerializeField]
-    private Toggle FPStoggle;
+    private Toggle fpsToggle;
+    [SerializeField]
+    private Slider volumeSlider;
+
+    [SerializeField]
+    private GameObject devTools;
+
 
     private void Start()
     {
-        FPStoggle.isOn = gameData.GetFramerateCounter().GetEnabled();
+        fpsToggle.isOn = gameData.GetFramerateCounter().GetEnabled();
+
+        volumeSlider.value = gameData.GetVolumeController().GetEffectsVolume();
     }
 
 
@@ -35,6 +43,18 @@ public class SettingsMenu : MenuScreen
 
     public void ToggleFramerateCounter()
     {
-        gameData.GetFramerateCounter().SetEnabled(FPStoggle.isOn);
+        gameData.GetFramerateCounter().SetEnabled(fpsToggle.isOn);
+    }
+
+
+    public void UpdateEffectsVolume()
+    {
+        gameData.GetVolumeController().SetEffectsVolume(volumeSlider.value);
+    }
+
+
+    public void ToggleDevTools()
+    {
+        devTools.SetActive(!devTools.activeSelf);
     }
 }

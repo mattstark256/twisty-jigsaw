@@ -75,6 +75,12 @@ public class OverlapPuzzle : Puzzle
 
         transform.localScale = Vector3.one / scaleFactor;
         transform.localPosition = -center / scaleFactor;
+
+        // Give each piece a reference to gameData
+        foreach (Piece piece in pieces)
+        {
+            piece.SetGameData(gameData);
+        }
     }
 
 
@@ -102,8 +108,6 @@ public class OverlapPuzzle : Puzzle
         {
             selectedPiece = closestPiece;
             selectedPiece.StartInteraction(localPosition);
-
-            //gameData.GetSoundEffectManager().PlayEffect("Test");
         }
     }
 

@@ -96,6 +96,9 @@ public class PuzzleManager : MonoBehaviour
                     solvedUI = Instantiate(solvedUIPrefab, puzzleUIParent);
                     UpdateColors(sequenceIndex, puzzleIndex);
 
+                    // Play "Win" sound
+                    gameData.GetSoundEffectManager().PlayEffect("Win");
+
                     // Save any progress
                     if (gameData.GetSequenceSequence().GetSequence(sequenceIndex).IsLastPuzzle(puzzleIndex))
                     { gameData.GetSaveData().SequenceCompleted(sequenceIndex); }
@@ -112,6 +115,7 @@ public class PuzzleManager : MonoBehaviour
                 if (stateTimer > minStateTime && puzzleInput.GetPointerPressState() == PressState.pressed)
                 {
                     gameData.GetWipeTransition().DoIrisWipe(puzzleInput.GetPointerScreenPosition());
+
                     if (gameData.GetSequenceSequence().GetSequence(sequenceIndex).IsLastPuzzle(puzzleIndex))
                     {
                         if (gameData.GetSequenceSequence().IsLastSequence(sequenceIndex))

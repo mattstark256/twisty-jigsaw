@@ -42,14 +42,16 @@ public class RotatingPiece : Piece
         if (puzzle.IsSolved()) return;
 
         int sign = (int)Mathf.Sign(rotationsToDo);
-        StartRotateCoroutine(sign);
+        StartRotateCoroutine(sign, true);
         rotationsToDo -= sign;
     }
 
 
-    public void StartRotateCoroutine(int sign) { StartCoroutine(RotateCoroutine(sign)); }
-    protected virtual IEnumerator RotateCoroutine(int sign)
+    public void StartRotateCoroutine(int sign, bool playSound) { StartCoroutine(RotateCoroutine(sign, playSound)); }
+    protected virtual IEnumerator RotateCoroutine(int sign, bool playSound)
     {
+        if (playSound) gameData.GetSoundEffectManager().PlayEffect("Click");
+
         ModifyOverlaps(-1);
         if (sign == 1) RotateTilesCCW(); else RotateTilesCW();
         ModifyOverlaps(1);

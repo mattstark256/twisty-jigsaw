@@ -17,7 +17,8 @@ using UnityEngine.UI;
     typeof(SaveData),
     typeof(FramerateCounter))]
 [RequireComponent(
-    typeof(SoundEffectManager))]
+    typeof(SoundEffectManager), 
+    typeof(VolumeController))]
 public class GameData : MonoBehaviour
 {
     [SerializeField]
@@ -38,6 +39,8 @@ public class GameData : MonoBehaviour
     public FramerateCounter GetFramerateCounter() { return framerateCounter; }
     private SoundEffectManager soundEffectManager;
     public SoundEffectManager GetSoundEffectManager() { return soundEffectManager; }
+    private VolumeController volumeController;
+    public VolumeController GetVolumeController() { return volumeController; }
 
 
     private void Awake()
@@ -49,5 +52,6 @@ public class GameData : MonoBehaviour
         saveData = GetComponent<SaveData>();
         framerateCounter = GetComponent<FramerateCounter>();
         soundEffectManager = GetComponent<SoundEffectManager>();
+        volumeController = GetComponent<VolumeController>();
     }
 }

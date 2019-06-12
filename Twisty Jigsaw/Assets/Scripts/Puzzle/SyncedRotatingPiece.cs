@@ -17,8 +17,8 @@ public class SyncedRotatingPiece : RotatingPiece
         foreach (SyncedRotatingPiece piece in syncedPieces) { if (piece.IsBusy()) return; }
 
         int sign = (int)Mathf.Sign(rotationsToDo);
-        StartRotateCoroutine(sign);
-        foreach (SyncedRotatingPiece piece in syncedPieces) { piece.StartRotateCoroutine(sign); }
+        StartRotateCoroutine(sign, true);
+        foreach (SyncedRotatingPiece piece in syncedPieces) { piece.StartRotateCoroutine(sign, false); }
         rotationsToDo -= sign;
     }
 

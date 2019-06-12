@@ -46,13 +46,15 @@ public class SpiderRotatingPiece : RotatingPiece
         foreach (Piece piece in connectedPieces) { if (piece.IsBusy()) return; }
 
         int sign = (int)Mathf.Sign(rotationsToDo);
-        StartRotateCoroutine(sign);
+        StartRotateCoroutine(sign, true);
         rotationsToDo -= sign;
     }
 
 
-    protected override IEnumerator RotateCoroutine(int sign)
+    protected override IEnumerator RotateCoroutine(int sign, bool playSound)
     {
+        if (playSound) gameData.GetSoundEffectManager().PlayEffect("Click 2");
+
         ModifyOverlaps(-1);
         if (sign == 1) RotateTilesCCW(); else RotateTilesCW();
         ModifyOverlaps(1);

@@ -20,8 +20,11 @@ public class MenuManager : MonoBehaviour
     private ConfirmMenu confirmMenuPrefab;
     [SerializeField]
     private SettingsMenu settingsMenuPrefab;
+    [SerializeField]
+    private MenuBackdrop menuBackdropPrefab;
 
     private MenuScreen currentMenuScreen;
+    private MenuBackdrop menuBackdrop;
 
 
     private void Awake()
@@ -40,6 +43,9 @@ public class MenuManager : MonoBehaviour
     {
         if (currentMenuScreen != null) { Destroy(currentMenuScreen.gameObject); }
         currentMenuScreen = null;
+
+        if (menuBackdrop != null) { Destroy(menuBackdrop.gameObject); }
+        menuBackdrop = null;
     }
 
 
@@ -76,6 +82,8 @@ public class MenuManager : MonoBehaviour
 
     private void SwitchToScreen(MenuScreen menuScreenPrefab)
     {
+        if (menuBackdrop == null) { menuBackdrop = Instantiate(menuBackdropPrefab, menuUIParent); }
+
         if (currentMenuScreen != null) { Destroy(currentMenuScreen.gameObject); }
         currentMenuScreen = Instantiate(menuScreenPrefab, menuUIParent);
         currentMenuScreen.Initialize(gameData);

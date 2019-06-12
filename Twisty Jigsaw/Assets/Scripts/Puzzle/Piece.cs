@@ -34,6 +34,9 @@ public class Piece : MonoBehaviour
 
     protected OverlapPuzzle puzzle;
 
+    protected GameData gameData;
+    public void SetGameData(GameData _gameData) { gameData = _gameData; }
+
     protected bool isBusy;
     public bool IsBusy() { return isBusy; }
     public void SetBusy(bool _isBusy) { isBusy = _isBusy; }
