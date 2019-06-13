@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Palette 4
   m_EditorClassIdentifier: 
   foregroundColor: {r: 0.14117648, g: 0.16862743, b: 0.47058824, a: 1}
-  backgroundColor: {r: 1, g: 0.94509804, b: 0.42745098, a: 1}
+  backgroundColor: {r: 1, g: 0.96578944, b: 0.35000002, a: 1}
