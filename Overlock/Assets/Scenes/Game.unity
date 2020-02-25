@@ -938,15 +938,15 @@ MonoBehaviour:
   - name: Click
     filePath: Effects/ClickQuieter.ogg
     volume: 1
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: afeda070b6a9d33408fc846722e81c27, type: 3}
     fileID: 0
   - name: Click 2
     filePath: Effects/Click2Quieter.ogg
     volume: 1
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 9eef6059ae376b042b9316f49be69060, type: 3}
     fileID: 0
   - name: Win
     filePath: Effects/Win2.ogg
     volume: 1
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: b5fb0bec696b4914682a3e23ee022ca9, type: 3}
     fileID: 0

@@ -16,7 +16,12 @@ public class MenuBackdrop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gridSize = new Vector2Int(Mathf.CeilToInt(Screen.width / shapeSpacing) + 1, Mathf.CeilToInt(Screen.height / shapeSpacing) + 1);
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas == null) { Debug.LogWarning("No canvas found in parent of MenuBackdrop!"); }
+        Rect canvasRect = canvas.GetComponent<RectTransform>().rect;
+        Vector2 canvasSize = new Vector2(canvasRect.width, canvasRect.height);
+        Debug.Log(canvasSize);
+        gridSize = new Vector2Int(Mathf.CeilToInt(canvasSize.x / shapeSpacing) + 1, Mathf.CeilToInt(canvasSize.y / shapeSpacing) + 1);
         menuShapes = new MenuShape[gridSize.x, gridSize.y];
 
         for (int x = 0; x < gridSize.x; x++)
@@ -24,7 +29,7 @@ public class MenuBackdrop : MonoBehaviour
             for (int y = 0; y < gridSize.y; y++)
             {
                 MenuShape menuShape = Instantiate(menuShapePrefab, transform);
-                menuShape.transform.localPosition = new Vector3(x * shapeSpacing - Screen.width / 2, y * shapeSpacing - Screen.height / 2, 0);
+                menuShape.transform.localPosition = new Vector3(x * shapeSpacing - canvasSize.x / 2, y * shapeSpacing - canvasSize.y / 2, 0);
                 menuShapes[x, y] = menuShape;
             }
         }
